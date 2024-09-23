@@ -3,10 +3,12 @@ header {
 }
 
 .nav {
-    composes: p-4 ml-20 from global;
+    composes: pt-4 pb-4 from global;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1500px;
 }
 
 .menu_container {
