@@ -1,0 +1,12 @@
+/*.main {*/
+/*  margin: 0 auto;*/
+/*  width: 1400px;*/
+/*}*/
+
+.content {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  /*margin: 0 auto;*/
+  /*max-width: 1400px;*/
+}

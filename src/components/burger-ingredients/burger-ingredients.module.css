@@ -1,0 +1,13 @@
+.tab_container {
+    composes: mb-10 from global;
+    display: flex;
+}
+
+.tab_container > div {
+    flex-grow: 1;
+}
+
+.ingredients_container {
+    overflow-y: auto;
+    max-height: 65vh;
+}

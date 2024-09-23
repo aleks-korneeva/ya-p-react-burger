@@ -1,0 +1,10 @@
+.ingredient_container {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+.price_container {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,25 @@
+header {
+    background-color: var(--background);
+}
+
+.nav {
+    composes: p-4 ml-20 from global;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.menu_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.menu_item {
+    composes: text_type_main-default pl-5 pr-5 from global;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+}
