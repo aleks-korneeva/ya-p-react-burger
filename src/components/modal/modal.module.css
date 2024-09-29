@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    composes: pl-10 pr-10 from global;
+    background: var(--background);
+    border-radius: var(--common-border-radius-s);
+    width: 720px;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.header {
+    composes: mt-10 from global;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.close_icon {
+    cursor: pointer;
+}
+
+.content {
+    composes: pr-10 pl-10 from global;
+    width: 100%;
+    box-sizing: border-box;
+}

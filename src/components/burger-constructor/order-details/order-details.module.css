@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    composes: mt-20 from global;
+}
+
+.order_number {
+    composes: text text_type_digits-large mb-8 from global;
+    text-shadow: var(--colors-interface-accent) 0 0 20px;
+}
+
+.order_accepted_image {
+    composes: mb-15 from global;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+}
+
+.order_accepted_image img {
+    width: 100%;
+    height: auto;
+}
