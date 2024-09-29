@@ -25,7 +25,7 @@ export default function BurgerIngredients({ingredients}) {
     }
 
     return (
-        <section style={{flexBasis: 800}}>
+        <section>
             <h1 className={"text text_type_main-large mt-10 mb-5"}>Соберите бургер</h1>
             <div className={`${styles.tab_container}`}>
                 <Tab value={BUN} active={true} onClick={onClick}>
