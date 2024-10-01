@@ -17,7 +17,12 @@ function App() {
     function fetchIngredients() {
         setState({...state, isLoading: true});
         fetch(url)
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Error with status code ${res.status} ${res.statusText}`);
+            })
             .then(data => setState({ingredients: data.data, isLoading: false, hasError: false}))
             .catch(err => {
                 setState({...state, isLoading: false, hasError: true});
