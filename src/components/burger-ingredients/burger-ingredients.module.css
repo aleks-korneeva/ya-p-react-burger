@@ -9,5 +9,5 @@
 
 .ingredients_container {
     overflow-y: auto;
-    max-height: 65vh;
+    max-height: calc(100vh - 300px);
 }
