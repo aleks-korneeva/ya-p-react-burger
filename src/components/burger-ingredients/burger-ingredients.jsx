@@ -37,17 +37,19 @@ export default function BurgerIngredients() {
     groupRefs[SAUCE] = useRef(null);
     groupRefs[MAIN] = useRef(null);
 
+    const tabContainerRef = useRef(null);
+
     function handleTabClick(type) {
         groupRefs[type].current.scrollIntoView({behavior: "smooth"});
         setActiveTab(type)
     }
 
-    function handleScroll(e) {
-        const containerRect = e.target.getBoundingClientRect();
+    function handleScroll() {
+        const containerRect = tabContainerRef.current.getBoundingClientRect();
         const distances = [];
         for (const ref of Object.values(groupRefs)) {
             const elementRect = ref.current.getBoundingClientRect();
-            const distance = Math.abs(elementRect.top - containerRect.top);
+            const distance = Math.abs(containerRect.bottom - elementRect.top);
             distances.push(distance);
         }
 
@@ -62,7 +64,7 @@ export default function BurgerIngredients() {
             {ingredientRequest ? (<h1>Загрузка</h1>) : ingredientFailed ? (<h1>Ошибка</h1>) : (
                 <div>
                     <h1 className={"text text_type_main-large mt-10 mb-5"}>Соберите бургер</h1>
-                    <div className={`${styles.tab_container}`}>
+                    <div className={`${styles.tab_container}`} ref={tabContainerRef}>
                         <Tab value={BUN} active={activeTab === BUN} onClick={handleTabClick}>
                             Булки
                         </Tab>
