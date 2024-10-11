@@ -5,16 +5,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {OPEN_INGREDIENT} from "../../../services/actions/current-ingredient";
 import React from "react";
 import {BUN} from "../../../utils/ingredient-types";
+import {useDrag} from "react-dnd";
+import {ADD_BUN, ADD_INGREDIENT} from "../../../services/actions/constructor-ingredients";
 
 export default function IngredientItem({ingredient}) {
-    const ingredients = useSelector(state => state.burgerConstructor.ingredients);
+    const {bun, ingredients} = useSelector(state => state.burgerConstructor);
+
     const count = React.useMemo(() =>  {
-        const count = ingredients.filter(e => e._id === ingredient._id).length;
         if (ingredient.type === BUN) {
-            return count * 2;
+            return bun && bun._id === ingredient._id ? 2 : 0;
+        } else {
+            return ingredients.filter(e => e._id === ingredient._id).length;
         }
-        return count;
-    }, [ingredients]);
+    }, [bun, ingredients]);
 
     const dispatch = useDispatch();
 
@@ -25,8 +28,31 @@ export default function IngredientItem({ingredient}) {
         })
     }
 
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: ingredient.type === BUN ? BUN : 'filling',
+        item: ingredient._id,
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult()
+            if (item && dropResult) {
+                ingredient.type === BUN ? dispatch({
+                        type: ADD_BUN,
+                        ingredient: ingredient
+                    }) :
+                    dispatch({
+                        type: ADD_INGREDIENT,
+                        ingredient: ingredient
+                    })
+            }
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            handlerId: monitor.getHandlerId(),
+        }),
+    }))
+    const opacity = isDragging ? 0.5 : 1
+
     return (
-        <div className={`${styles.ingredient_container} mb-8`} onClick={handleOpenModal}>
+        <div className={`${styles.ingredient_container} mb-8`} onClick={handleOpenModal} ref={drag} style={{opacity: opacity }}>
             {count !== 0  &&
                 <Counter count={count}/>
             }
