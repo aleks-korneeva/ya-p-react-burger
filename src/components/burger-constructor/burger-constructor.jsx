@@ -1,13 +1,14 @@
-import React, {useMemo} from 'react';
-import {Button, ConstructorElement, CurrencyIcon, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import React, {useCallback, useMemo} from 'react';
+import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from "./order-details/order-details";
 import Modal from "../modal/modal";
 import styles from './burger-constructor.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {CLOSE_ORDER_MODAL, createOrder, OPEN_ORDER_MODAL} from "../../services/actions/order";
-import {DELETE_INGREDIENT} from "../../services/actions/constructor-ingredients";
+import {MOVE_INGREDIENT} from "../../services/actions/constructor-ingredients";
 import {useDrop} from "react-dnd";
 import {BUN} from "../../utils/ingredient-types";
+import {DraggableElement} from "./draggable-ingredient/draggable-element";
 
 export const BurgerConstructor = () => {
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
@@ -19,7 +20,6 @@ export const BurgerConstructor = () => {
 
     const {orderNumber, isOpen} = useSelector(state => state.order);
     const dispatch = useDispatch();
-
 
     function handleMakeOrder() {
         const ids = [bun._id, ...ingredients.map(e => e._id), bun._id];
@@ -33,15 +33,6 @@ export const BurgerConstructor = () => {
         dispatch({
             type: CLOSE_ORDER_MODAL
         })
-    }
-
-    function handleDeleteIngredient(key) {
-        return function () {
-            dispatch({
-                type: DELETE_INGREDIENT,
-                key: key
-            })
-        }
     }
 
     const [{canDropBun, isOverBun}, bunDrop] = useDrop(() => ({
@@ -59,6 +50,14 @@ export const BurgerConstructor = () => {
             canDrop: monitor.canDrop(),
         }),
     }))
+
+    const moveIngredient = useCallback((fromIndex, toIndex) => {
+        dispatch({
+            type: MOVE_INGREDIENT,
+            fromIndex: fromIndex,
+            toIndex: toIndex
+        })
+    }, [dispatch])
 
     return (
         <section className={"wrapper"}>
@@ -82,15 +81,9 @@ export const BurgerConstructor = () => {
 
                 <div className={styles.scrolled_elements_container} ref={drop}>
                     {ingredients && ingredients.length > 0 ?
-                        ingredients.map(item => (
-                            <div className={`${styles.element} ml-4`} key={item.key}>
-                                <DragIcon type="primary"/>
-                                <ConstructorElement text={item.name}
-                                                    thumbnail={item.image}
-                                                    price={item.price}
-                                                    handleClose={handleDeleteIngredient(item.key)}
-                                                    extraClass={`${styles.constructor_element} ml-2`}/>
-                            </div>))
+                        ingredients.map((item, index) => (
+                            <DraggableElement item={item} index={index} moveIngredient={moveIngredient} key={item.key}/>
+                           ))
                         : (
                             <div className={`${styles.empty_element} ${isOver ? styles.onHover : canDrop ? styles.onDrop : ''}`}>
                                 <span>Выберите начинку</span>

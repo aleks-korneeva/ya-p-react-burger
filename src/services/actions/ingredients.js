@@ -17,7 +17,6 @@ export function getIngredients() {
                 return Promise.reject(`Error with status code ${response.status} ${response.statusText}`);
             }
         }).then(data => {
-            console.log(data.data)
             dispatch({
                 type: GET_INGREDIENTS_SUCCESS,
                 ingredients: data.data
