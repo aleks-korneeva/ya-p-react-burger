@@ -60,7 +60,7 @@ export default function BurgerIngredients() {
     }
 
     return (
-        <section>
+        <section className={styles.wrapper}>
             {ingredientRequest ? (<h1>Загрузка</h1>) : ingredientFailed ? (<h1>Ошибка</h1>) : (
                 <div>
                     <h1 className={"text text_type_main-large mt-10 mb-5"}>Соберите бургер</h1>

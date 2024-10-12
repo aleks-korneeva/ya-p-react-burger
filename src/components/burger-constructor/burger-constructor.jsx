@@ -63,7 +63,7 @@ export const BurgerConstructor = () => {
     }, [dispatch])
 
     return (
-        <section className={"wrapper"}>
+        <section className={styles.wrapper}>
             <div className={`mt-25 mb-10 ${styles.ingredients_container}`} ref={bunDrop}>
                 {bun ? (
                     <div className={`ml-4`}>
@@ -111,7 +111,7 @@ export const BurgerConstructor = () => {
                 )
                 }
             </div>
-            <div className={`${styles.total_container} mr-8`}>
+            <div className={`${styles.total_container}`}>
                     <span className={`${styles.total_price_container} mr-10`}>
                         <p className={"text text_type_digits-medium mr-2"}>{total}</p>
                         <CurrencyIcon type={"primary"}/>
