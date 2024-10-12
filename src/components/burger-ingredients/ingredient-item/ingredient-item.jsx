@@ -6,7 +6,7 @@ import {OPEN_INGREDIENT} from "../../../services/actions/current-ingredient";
 import React from "react";
 import {BUN} from "../../../utils/ingredient-types";
 import {useDrag} from "react-dnd";
-import {ADD_BUN, ADD_INGREDIENT} from "../../../services/actions/constructor-ingredients";
+import {ADD_BUN, addIngredient} from "../../../services/actions/constructor-ingredients";
 import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 
 export default function IngredientItem({ingredient}) {
@@ -35,14 +35,11 @@ export default function IngredientItem({ingredient}) {
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
-                ingredient.type === BUN ? dispatch({
+                ingredient.type === BUN ?
+                    dispatch({
                         type: ADD_BUN,
                         ingredient: ingredient
-                    }) :
-                    dispatch({
-                        type: ADD_INGREDIENT,
-                        ingredient: ingredient
-                    })
+                    }) : dispatch(addIngredient(ingredient))
             }
         },
         collect: (monitor) => ({

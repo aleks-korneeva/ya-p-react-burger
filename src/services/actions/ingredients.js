@@ -1,8 +1,10 @@
-import {urlGetIngredients} from '../../utils/api';
+import {request} from '../../utils/api';
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
+
+const apiEndpoint = 'ingredients';
 
 export function getIngredients() {
     return function (dispatch) {
@@ -10,21 +12,17 @@ export function getIngredients() {
             type: GET_INGREDIENTS
         })
 
-        fetch(urlGetIngredients).then(response => {
-            if (response && response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Error with status code ${response.status} ${response.statusText}`);
-            }
-        }).then(data => {
-            dispatch({
-                type: GET_INGREDIENTS_SUCCESS,
-                ingredients: data.data
+        request(apiEndpoint)
+            .then(data => {
+                dispatch({
+                    type: GET_INGREDIENTS_SUCCESS,
+                    ingredients: data.data
+                })
             })
-        }).catch(() => {
-            dispatch({
-                type: GET_INGREDIENTS_FAILED
+            .catch(() => {
+                dispatch({
+                    type: GET_INGREDIENTS_FAILED
+                })
             })
-        })
     }
 }

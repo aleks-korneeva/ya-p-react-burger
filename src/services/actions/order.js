@@ -1,4 +1,4 @@
-import {urlCreateOrder} from "../../utils/api";
+import {request} from "../../utils/api";
 
 export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
 export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';
@@ -7,13 +7,15 @@ export const CREATE_ORDER_FAILED = 'CREATE_ORDER_FAILED';
 export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 
+const apiEndpoint = 'orders';
+
 export function createOrder(ingredients) {
-    return function(dispatch) {
+    return function (dispatch) {
         dispatch({
             type: CREATE_ORDER_REQUEST
         })
 
-        fetch(urlCreateOrder, {
+        const requestOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -21,22 +23,20 @@ export function createOrder(ingredients) {
             body: JSON.stringify({
                 ingredients: ingredients
             })
-        }).then(response => {
-            if (response && response.ok) {
-                return response.json()
-            } else {
-                return Promise.reject(`Error with status code ${response.status} ${response.statusText}`);
-            }
-        }).then(data => {
-            dispatch({
-                type: CREATE_ORDER_SUCCESS,
-                orderNumber: data.order.number
+        }
+
+        request(apiEndpoint, requestOptions)
+            .then(data => {
+                dispatch({
+                    type: CREATE_ORDER_SUCCESS,
+                    orderNumber: data.order.number
+                })
             })
-        }).catch(error => {
-            dispatch({
-                type: CREATE_ORDER_FAILED,
-                error: error
+            .catch(error => {
+                dispatch({
+                    type: CREATE_ORDER_FAILED,
+                    error: error
+                })
             })
-        })
     }
 }
