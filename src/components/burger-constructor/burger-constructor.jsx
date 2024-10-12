@@ -7,8 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {CLOSE_ORDER_MODAL, createOrder, OPEN_ORDER_MODAL} from "../../services/actions/order";
 import {DELETE_ALL_INGREDIENTS, MOVE_INGREDIENT} from "../../services/actions/constructor-ingredients";
 import {useDrop} from "react-dnd";
-import {BUN} from "../../utils/ingredient-types";
 import {DraggableElement} from "./draggable-ingredient/draggable-element";
+import {DraggableItemTypes} from "../../utils/draggable-item-types";
 
 export const BurgerConstructor = () => {
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
@@ -39,7 +39,7 @@ export const BurgerConstructor = () => {
     }
 
     const [{canDropBun, isOverBun}, bunDrop] = useDrop(() => ({
-        accept: BUN,
+        accept: DraggableItemTypes.BUN,
         collect: (monitor) => ({
             isOverBun: monitor.isOver(),
             canDropBun: monitor.canDrop(),
@@ -47,7 +47,7 @@ export const BurgerConstructor = () => {
     }))
 
     const [{canDrop, isOver}, drop] = useDrop(() => ({
-        accept: 'filling',
+        accept: DraggableItemTypes.FILLING,
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),

@@ -7,6 +7,7 @@ import React from "react";
 import {BUN} from "../../../utils/ingredient-types";
 import {useDrag} from "react-dnd";
 import {ADD_BUN, ADD_INGREDIENT} from "../../../services/actions/constructor-ingredients";
+import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 
 export default function IngredientItem({ingredient}) {
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
@@ -29,7 +30,7 @@ export default function IngredientItem({ingredient}) {
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: ingredient.type === BUN ? BUN : 'filling',
+        type: ingredient.type === BUN ? DraggableItemTypes.BUN : DraggableItemTypes.FILLING,
         item: ingredient._id,
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()

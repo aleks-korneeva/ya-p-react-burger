@@ -6,8 +6,7 @@ import {DELETE_INGREDIENT} from "../../../services/actions/constructor-ingredien
 import {useDrag, useDrop} from "react-dnd";
 import PropTypes from "prop-types";
 import ingredientPropsTypes from "../../../utils/ingredient-props-types";
-
-const DRAGGABLE_ITEM_TYPE = 'item';
+import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 
 export const DraggableElement = ({index, item, moveIngredient}) => {
     const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export const DraggableElement = ({index, item, moveIngredient}) => {
     const ref = useRef(null);
 
     const [{isDragging}, drag] = useDrag({
-        type: DRAGGABLE_ITEM_TYPE,
+        type: DraggableItemTypes.CONSTRUCTOR_ITEM,
         item: {index},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -32,7 +31,7 @@ export const DraggableElement = ({index, item, moveIngredient}) => {
     })
 
     const [{handlerId}, drop] = useDrop({
-        accept: DRAGGABLE_ITEM_TYPE,
+        accept: DraggableItemTypes.CONSTRUCTOR_ITEM,
         collect(monitor) {
             return {
                 handlerId: monitor.getHandlerId(),
