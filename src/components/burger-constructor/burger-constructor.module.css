@@ -1,3 +1,13 @@
+.wrapper {
+    width: 100%;
+    flex: 45;
+}
+
+.ingredients_container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
 .constructor_element {
     background-color: var(--background);
 }
@@ -7,12 +17,9 @@
     max-height: 464px;
     display: flex;
     flex-direction: column;
+    align-items: end;
     gap: 16px;
-}
-
-.element {
-    display: flex;
-    align-items: center;
+    width: 100%;
 }
 
 .total_container {
@@ -29,4 +36,40 @@
 .total_price_container svg{
     width: 36px;
     height: 36px;
+}
+
+.empty_element {
+    composes: text text_type_main-default from global;
+    width: 100%;
+    max-width: 536px;
+    border: 3px solid var(--background);
+    border-radius: var(--common-border-radius-s);
+    background-color: var(--background);
+    min-height: 80px;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    margin-left: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom_bun {
+    composes: empty_element;
+    margin-top: 16px;
+    border-radius: var(--bottom-constructor-item-border-radius);
+}
+
+.top_bun {
+    composes: empty_element;
+    margin-bottom: 16px;
+    border-radius: var(--top-constructor-item-border-radius);
+}
+
+.onHover {
+    border: 3px dashed var(--colors-interface-accent);
+}
+
+.onDrop {
+    border: 3px dashed #a6ccff;
 }
