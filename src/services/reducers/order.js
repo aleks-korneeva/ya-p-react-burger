@@ -22,13 +22,13 @@ export const createOrderReducer = (state = initialState, action) => {
             return {...state, createOrderRequest: false, createOrderFailed: false, orderNumber: action.orderNumber };
         }
         case CREATE_ORDER_FAILED: {
-            return {...state, createOrderRequest: false, createOrderFailed: true };
+            return {...state, orderNumber: null, createOrderRequest: false, createOrderFailed: true };
         }
         case OPEN_ORDER_MODAL: {
             return {...state, isOpen: true};
         }
         case CLOSE_ORDER_MODAL: {
-            return {...state, isOpen: false};
+            return {...state, isOpen: false, orderNumber: null};
         }
         default:
             return state;

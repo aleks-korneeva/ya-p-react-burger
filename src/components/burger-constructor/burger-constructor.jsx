@@ -5,7 +5,7 @@ import Modal from "../modal/modal";
 import styles from './burger-constructor.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {CLOSE_ORDER_MODAL, createOrder, OPEN_ORDER_MODAL} from "../../services/actions/order";
-import {MOVE_INGREDIENT} from "../../services/actions/constructor-ingredients";
+import {DELETE_ALL_INGREDIENTS, MOVE_INGREDIENT} from "../../services/actions/constructor-ingredients";
 import {useDrop} from "react-dnd";
 import {BUN} from "../../utils/ingredient-types";
 import {DraggableElement} from "./draggable-ingredient/draggable-element";
@@ -32,6 +32,9 @@ export const BurgerConstructor = () => {
     function handleCloseOrder() {
         dispatch({
             type: CLOSE_ORDER_MODAL
+        })
+        dispatch({
+            type: DELETE_ALL_INGREDIENTS
         })
     }
 
