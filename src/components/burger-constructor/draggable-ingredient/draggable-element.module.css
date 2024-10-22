@@ -1,0 +1,14 @@
+.element {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+
+.onDrag {
+    opacity: 0.4;
+}
+
+.constructor_element {
+    background-color: var(--background);
+}
