@@ -2,12 +2,12 @@ import styles from './ingredient-item.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientPropsTypes from "../../../utils/ingredient-props-types";
 import {useDispatch, useSelector} from "react-redux";
-import {OPEN_INGREDIENT} from "../../../services/actions/current-ingredient";
 import React from "react";
 import {BUN} from "../../../utils/ingredient-types";
 import {useDrag} from "react-dnd";
 import {ADD_BUN, addIngredient} from "../../../services/actions/constructor-ingredients";
 import {DraggableItemTypes} from "../../../utils/draggable-item-types";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function IngredientItem({ingredient}) {
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
@@ -21,12 +21,11 @@ export default function IngredientItem({ingredient}) {
     }, [bun, ingredients]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     function handleOpenModal() {
-        dispatch({
-            type: OPEN_INGREDIENT,
-            ingredientDetails: ingredient
-        })
+        navigate(`ingredients/${ingredient._id}`, { replace: true, state: { backgroundLocation: location, item: ingredient } });
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({

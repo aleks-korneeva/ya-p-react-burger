@@ -1,0 +1,8 @@
+.container {
+    composes: mt-30 from global;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

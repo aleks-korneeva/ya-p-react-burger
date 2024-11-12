@@ -1,0 +1,23 @@
+import {RESET_PASSWORD_FAILED, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS} from "../actions/password-reset";
+
+const initialState = {
+    resetPasswordRequest: false,
+    resetPasswordSuccess: false,
+    resetPasswordFailed: false,
+}
+
+export const passwordResetReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case RESET_PASSWORD_REQUEST: {
+            return {...state, resetPasswordRequest: true };
+        }
+        case RESET_PASSWORD_SUCCESS: {
+            return {...state, resetPasswordRequest: false, resetPasswordFailed: false, resetPasswordSuccess: true };
+        }
+        case RESET_PASSWORD_FAILED: {
+            return {...state, resetPasswordRequest: false, resetPasswordFailed: true, resetPasswordSuccess: false };
+        }
+        default:
+            return state;
+    }
+}
