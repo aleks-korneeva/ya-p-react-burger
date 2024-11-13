@@ -2,13 +2,14 @@ import {Logo} from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
 import {NavLink} from "react-router-dom";
+import {AppRoute} from "../../utils/routes";
 
 const AppHeader = () => {
     return (
         <header>
             <div className={styles.nav}>
                 <nav className={styles.menu_container}>
-                    <NavLink to="/" className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
+                    <NavLink to={AppRoute.main} className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
                         {({isActive}) => (
                             <>
                                 <BurgerIcon type={isActive ? "primary" : "secondary"} />
@@ -27,7 +28,7 @@ const AppHeader = () => {
                     </NavLink>
                 </nav>
                 <Logo/>
-                <NavLink to="/profile" className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
+                <NavLink to={AppRoute.profile} className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
                     {({isActive}) => (
                         <>
                             <ProfileIcon type={isActive ? "primary" : "secondary"} />

@@ -1,9 +1,10 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password-page.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setPassword} from "../../services/actions/set-password";
 import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import {AppRoute} from "../../utils/routes";
 
 export const ResetPasswordPage = () => {
     const [state, setState] = useState({
@@ -14,12 +15,6 @@ export const ResetPasswordPage = () => {
     const {setPasswordSuccess} = useSelector(state => state.setPassword);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (setPasswordSuccess) {
-            navigate("/login");
-        }
-    }, [setPasswordSuccess, navigate]);
 
     function handleOnChange(e) {
         const target = e.target;
@@ -48,7 +43,7 @@ export const ResetPasswordPage = () => {
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
                 </form>
                 <div className={styles.sign_in_container}>
-                    <div>Вспомнили пароль? <Link to={"/login"} className={styles.link}>Войти</Link></div>
+                    <div>Вспомнили пароль? <Link to={AppRoute.login} className={styles.link}>Войти</Link></div>
                 </div>
             </div>
         </div>

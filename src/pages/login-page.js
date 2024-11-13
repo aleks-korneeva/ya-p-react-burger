@@ -1,16 +1,17 @@
-import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./registration/reset-password-page.module.css";
 import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getUser, login} from "../services/actions/auth";
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {login} from "../services/actions/auth";
+import {AppRoute} from "../utils/routes";
 
 export const LoginPage = () => {
     const [state, setState] = useState({
         email: '',
         password: '',
     })
-    const { user } = useSelector(state => state.auth);
+
     const dispatch = useDispatch();
 
     function handleOnChange(e) {
@@ -29,12 +30,6 @@ export const LoginPage = () => {
         dispatch(login(state));
     }
 
-    useEffect(() => {
-        if (!user) {
-            dispatch(getUser())
-        }
-    }, [])
-
     return (
         <div className={styles.content_wrapper}>
             <div>
@@ -48,10 +43,10 @@ export const LoginPage = () => {
                 </form>
                 <div className={styles.sign_in_container}>
                     <div>
-                        <span>Вы - новый пользователь?</span>
-                        <Link to={"/register"} className={styles.link}>Зарегестрироваться</Link>
+                        <span className={"mr-2"}>Вы - новый пользователь?</span>
+                        <Link to={AppRoute.register} className={styles.link}>Зарегестрироваться</Link>
                     </div>
-                    <div>Забыли пароль? <Link to={"/forgot-password"} className={styles.link}>Восстановить пароль</Link>
+                    <div>Забыли пароль? <Link to={AppRoute.forgotPassword} className={styles.link}>Восстановить пароль</Link>
                     </div>
                 </div>
             </div>

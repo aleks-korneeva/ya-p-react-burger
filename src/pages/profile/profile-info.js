@@ -2,7 +2,7 @@ import styles from "../profile-page.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {getUser, updateUser} from "../../services/actions/auth";
+import {updateUser} from "../../services/actions/auth";
 import {Preloader} from "../../components/preloader";
 
 export const ProfileInfo = () => {
@@ -15,12 +15,8 @@ export const ProfileInfo = () => {
     })
 
     useEffect(() => {
-        dispatch(getUser())
-    }, [])
-
-    useEffect(() => {
         setState({...state, ...user})
-    }, [user]);
+    }, []);
 
     function handleOnChange(e) {
         const target = e.target;
@@ -38,16 +34,16 @@ export const ProfileInfo = () => {
         dispatch(updateUser(state));
     }
 
-    function handleReset(e) {
+    function handleReset() {
         setState({...state, ...user})
     }
 
     const hasChanges = state.name !== '' && (state.name !== user.name || state.email !== user.email || state.password !== '');
 
     return (
-        <div className={styles.content}>
+        <div>
             {user ? <div>
-                    <form onSubmit={handleOnSubmit}>
+                    <form onSubmit={handleOnSubmit} className={styles.content}>
                         <Input name={"name"} value={state.name} onChange={handleOnChange} placeholder={"Имя"}
                                icon={"EditIcon"} type={"text"}></Input>
                         <Input name={"email"} value={state.email} onChange={handleOnChange} placeholder={"Логин"}
@@ -57,10 +53,12 @@ export const ProfileInfo = () => {
                                icon={"EditIcon"}
                                type={"password"}
                                onIconClick={e => e}></Input>
-                        {user && hasChanges ? <div>
-                            <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
-                            <Button htmlType={"button"} type={"primary"} size={"medium"} onClick={handleReset}>Отменить</Button>
-                        </div> : ''}
+                        {user && hasChanges ?
+                            <div>
+                                <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
+                                <Button htmlType={"button"} type={"primary"} size={"medium"}
+                                        onClick={handleReset}>Отменить</Button>
+                            </div> : ''}
                     </form>
                 </div>
                 : <Preloader/>}

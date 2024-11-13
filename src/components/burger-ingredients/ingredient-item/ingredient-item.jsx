@@ -8,6 +8,7 @@ import {useDrag} from "react-dnd";
 import {ADD_BUN, addIngredient} from "../../../services/actions/constructor-ingredients";
 import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 import {useLocation, useNavigate} from "react-router-dom";
+import {AppRoute} from "../../../utils/routes";
 
 export default function IngredientItem({ingredient}) {
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
@@ -25,7 +26,7 @@ export default function IngredientItem({ingredient}) {
     const location = useLocation();
 
     function handleOpenModal() {
-        navigate(`ingredients/${ingredient._id}`, { replace: true, state: { backgroundLocation: location, item: ingredient } });
+        navigate(`${AppRoute.ingredient}/${ingredient._id}`, { state: { backgroundLocation: location, item: ingredient } });
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({
