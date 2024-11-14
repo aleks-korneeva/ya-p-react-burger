@@ -3,7 +3,7 @@ import styles from "./registration/reset-password-page.module.css";
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {login} from "../services/actions/auth";
+import {login} from "../services/actions/login";
 import {AppRoute} from "../utils/routes";
 
 export const LoginPage = () => {

@@ -60,6 +60,7 @@ export const login = (formData) => {
         .then(data => {
                 localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
                 localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
+                return data;
             }
         )
 }
