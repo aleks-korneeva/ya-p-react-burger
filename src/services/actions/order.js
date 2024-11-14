@@ -1,5 +1,5 @@
 import {request} from "../../utils/api";
-import {getCookie} from "../../utils/cookie";
+import {StorageKey} from "../../utils/storage-key";
 
 export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
 export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';
@@ -20,7 +20,7 @@ export function createOrder(ingredients) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                authorization: "Bearer " + getCookie("accessToken")
+                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN)
             },
             body: JSON.stringify({
                 ingredients: ingredients

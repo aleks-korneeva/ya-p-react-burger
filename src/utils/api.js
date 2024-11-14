@@ -1,4 +1,4 @@
-import {deleteCookie, getCookie, setCookie} from "./cookie";
+import {StorageKey} from "./storage-key";
 
 const baseUrl = 'https://norma.nomoreparties.space/api/';
 const apiEndpointToken = 'auth/token';
@@ -9,18 +9,13 @@ const apiEndpointUser = 'auth/user';
 
 export function requestWithRefreshToken(endpoint, options) {
     return request(endpoint, options).catch(error => {
-        console.log('error getUser', error)
         if (error.message.includes("jwt expired")) {
             return refreshToken().then(() => {
-                const newOptions = {
-                    ...options,
-                    headers: {
-                        ...options.headers,
-                        'Authorization': "Bearer " + getCookie("accessToken")
-                    }
-                };
-                return request(endpoint, newOptions);
+                options.headers.authorization = localStorage.getItem(StorageKey.ACCESS_TOKEN)
+                return request(endpoint, options);
             });
+        } else {
+            return Promise.reject(error);
         }
     })
 }
@@ -36,7 +31,7 @@ export const getUser = () => {
     const requestOptions = {
         method: 'GET',
         headers: {
-            'Authorization': "Bearer " + getCookie("accessToken")
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN)
         }
     }
 
@@ -46,8 +41,8 @@ export const getUser = () => {
             }
         )
         .catch((error) => {
-            deleteCookie("accessToken")
-            localStorage.removeItem("refreshToken");
+            localStorage.removeItem(StorageKey.ACCESS_TOKEN);
+            localStorage.removeItem(StorageKey.REFRESH_TOKEN);
             throw error;
         })
 }
@@ -63,10 +58,8 @@ export const login = (formData) => {
 
     return request(apiEndpointLogin, requestOptions)
         .then(data => {
-                const accessToken = data.accessToken.split("Bearer ")[1];
-                const refreshToken = data.refreshToken;
-                setCookie("accessToken", accessToken);
-                localStorage.setItem("refreshToken", refreshToken);
+                localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
+                localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
             }
         )
 }
@@ -75,19 +68,18 @@ export const logout = () => {
     const requestOptions = {
         method: 'POST',
         headers: {
-            'Authorization': "Bearer " + getCookie("accessToken"),
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify({
-            token: localStorage.getItem("refreshToken")
+            token: localStorage.getItem(StorageKey.REFRESH_TOKEN)
         })
     }
 
     return request(apiEndpointLogout, requestOptions)
         .then(() => {
-                deleteCookie("accessToken");
-                localStorage.removeItem("refreshToken");
-                console.log("cookies dleeted'")
+                localStorage.removeItem(StorageKey.ACCESS_TOKEN);
+                localStorage.removeItem(StorageKey.REFRESH_TOKEN);
             }
         )
 }
@@ -96,7 +88,7 @@ export function updateUser(formData) {
         const requestOptions = {
             method: 'PATCH',
             headers: {
-                'Authorization': "Bearer " + getCookie("accessToken"),
+                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(formData)
@@ -127,19 +119,18 @@ export async function refreshToken() {
     const requestOptions = {
         method: 'POST',
         headers: {
-            'Authorization': "Bearer " + getCookie("accessToken"),
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify({
-            token: localStorage.getItem('refreshToken')
+            token: localStorage.getItem(StorageKey.REFRESH_TOKEN)
         })
     }
 
     return request(apiEndpointToken, requestOptions)
         .then((data) => {
-                const accessToken = data.accessToken.split("Bearer ")[1];
-                setCookie("accessToken", accessToken)
-                localStorage.setItem("refreshToken", data.refreshToken);
+                localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken)
+                localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
                 return data;
             }
         ).catch(error => {

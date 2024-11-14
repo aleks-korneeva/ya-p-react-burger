@@ -1,5 +1,5 @@
 import {api, request, requestWithRefreshToken} from "../../utils/api";
-import {deleteCookie, getCookie, setCookie} from "../../utils/cookie";
+import {StorageKey} from "../../utils/storage-key";
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -53,7 +53,7 @@ export function getUser() {
 
 export function checkUserAuth() {
     return dispatch => {
-        if (getCookie("accessToken")) {
+        if (localStorage.getItem(StorageKey.ACCESS_TOKEN)) {
             dispatch(getUser())
                 .catch(() => {
                     dispatch(setUser(null));
@@ -73,8 +73,6 @@ export function register(formData) {
             type: REGISTER_REQUEST
         })
 
-        console.log(formData)
-
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -85,10 +83,8 @@ export function register(formData) {
 
         request(apiEndpointRegister, requestOptions)
             .then(data => {
-                    const accessToken = data.accessToken.split("Bearer ")[1];
-                    const refreshToken = data.refreshToken;
-                    setCookie("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", refreshToken);
+                    localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
+                    localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
                     dispatch({
                         type: REGISTER_SUCCESS,
                         user: data.user
@@ -110,8 +106,6 @@ export function login(formData) {
             type: LOGIN_REQUEST
         })
 
-        console.log(formData)
-
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -122,10 +116,8 @@ export function login(formData) {
 
         request(apiEndpointLogin, requestOptions)
             .then(data => {
-                    const accessToken = data.accessToken.split("Bearer ")[1];
-                    const refreshToken = data.refreshToken;
-                    setCookie("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", refreshToken);
+                    localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
+                    localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
                 dispatch(setUser(data.user))
                     dispatch({
                         type: LOGIN_SUCCESS,
@@ -151,18 +143,18 @@ export function logout() {
         const requestOptions = {
             method: 'POST',
             headers: {
-                'Authorization': "Bearer " + getCookie("accessToken"),
+                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-                token: localStorage.getItem("refreshToken")
+                token: localStorage.getItem(StorageKey.REFRESH_TOKEN)
             })
         }
 
         request(apiEndpointLogout, requestOptions)
             .then(() => {
-                    deleteCookie("accessToken");
-                    localStorage.removeItem("refreshToken");
+                    localStorage.removeItem(StorageKey.ACCESS_TOKEN);
+                    localStorage.removeItem(StorageKey.REFRESH_TOKEN);
                     dispatch(setUser(null))
                     dispatch({
                         type: LOGOUT_SUCCESS,
@@ -188,7 +180,7 @@ export function updateUser(formData) {
         const requestOptions = {
             method: 'PATCH',
             headers: {
-                'Authorization': "Bearer " + getCookie("accessToken"),
+                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(formData)
