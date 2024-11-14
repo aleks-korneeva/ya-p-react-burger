@@ -1,4 +1,4 @@
-import styles from "../profile-page.module.css";
+import styles from "./profile-page.module.css";
 import {NavLink, Outlet} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../services/actions/logout";

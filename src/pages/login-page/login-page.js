@@ -1,10 +1,11 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./registration/reset-password-page.module.css";
+import styles from "../registration/reset-password-page.module.css";
 import {Link} from "react-router-dom";
 import {useState} from "react";
-import {useDispatch} from "react-redux";
-import {login} from "../services/actions/login";
-import {AppRoute} from "../utils/routes";
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../../services/actions/login";
+import {AppRoute} from "../../utils/routes";
+import {Preloader} from "../../components/preloader/preloader";
 
 export const LoginPage = () => {
     const [state, setState] = useState({
@@ -13,6 +14,7 @@ export const LoginPage = () => {
     })
 
     const dispatch = useDispatch();
+    const {loginRequest} = useSelector(state => state.login)
 
     function handleOnChange(e) {
         const target = e.target;
@@ -50,6 +52,7 @@ export const LoginPage = () => {
                     </div>
                 </div>
             </div>
+            { loginRequest && <Preloader text={"Вход..."}/>}
         </div>
     )
 }

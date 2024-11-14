@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import AppHeader from './components/app-header/app-header'
 import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
-import {LoginPage} from "./pages/login-page";
+import {LoginPage} from "./pages/login-page/login-page";
 import {HomePage} from "./pages/home-pahe/home-page";
 import {ResetPasswordPage} from "./pages/registration/reset-password-page";
 import {ForgotPasswordPage} from "./pages/registration/forgot-password-page";
