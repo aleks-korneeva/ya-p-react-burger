@@ -1,11 +1,12 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password-page.module.css";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setPassword} from "../../services/actions/set-password";
-import {useState} from "react";
-import {Link, Navigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import {AppRoute} from "../../utils/routes";
 import {StorageKey} from "../../utils/storage-key";
+import {Preloader} from "../../components/preloader/preloader";
 
 export const ResetPasswordPage = () => {
     const [state, setState] = useState({
@@ -14,6 +15,7 @@ export const ResetPasswordPage = () => {
     })
 
     const dispatch = useDispatch();
+    const {setPasswordRequest, setPasswordSuccess} = useSelector(state => state.setPassword)
 
     function handleOnChange(e) {
         const target = e.target;
@@ -51,5 +53,6 @@ export const ResetPasswordPage = () => {
                         </div>
                     </div>
                 </div> : <Navigate to={AppRoute.main}/>}
+            { setPasswordRequest && <Preloader text={"Устанавливаем новый пароль..."}/>}
         </div>)
 }

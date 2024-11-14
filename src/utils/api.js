@@ -6,6 +6,8 @@ const apiEndpointRegister = 'auth/register';
 const apiEndpointLogin = 'auth/login';
 const apiEndpointLogout = 'auth/logout';
 const apiEndpointUser = 'auth/user';
+const apiEndpointResetPassword = 'password-reset';
+const apiEndpointSetPassword = 'password-reset/reset';
 
 export function requestWithRefreshToken(endpoint, options) {
     return request(endpoint, options).catch(error => {
@@ -116,6 +118,40 @@ export function register(formData) {
         })
 }
 
+export function setPassword(formData) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(formData)
+    }
+
+    return request(apiEndpointSetPassword, requestOptions)
+        .then((data) => {
+                localStorage.setItem(StorageKey.PASSWORD_RESET, 'false');
+                return data;
+            }
+        )
+}
+
+export function resetPassword(formData) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(formData)
+    }
+
+    return request(apiEndpointResetPassword, requestOptions)
+        .then((data) => {
+                localStorage.setItem(StorageKey.PASSWORD_RESET, 'true');
+                return data;
+            }
+        )
+}
+
 const checkResponse = (response) => {
     if (response && response.ok) {
         return response.json()
@@ -158,5 +194,5 @@ export async function refreshToken() {
 }
 
 export const api = {
-    getUser, login, logout, updateUser, register
+    getUser, login, logout, updateUser, register, resetPassword, setPassword
 }

@@ -5,16 +5,31 @@ import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../services/actions/password-reset";
 import React, {useEffect} from "react";
 import {AppRoute} from "../../utils/routes";
+import {Preloader} from "../../components/preloader/preloader";
+import {StorageKey} from "../../utils/storage-key";
 
 export const ForgotPasswordPage = () => {
-    const [value, setValue] = React.useState('');
-    const {resetPasswordSuccess} = useSelector(state => state.passwordReset);
+    const [state, setState] = React.useState({
+        email: ''
+    });
+    const {resetPasswordSuccess, resetPasswordRequest} = useSelector(state => state.passwordReset);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    function handleOnChange(e) {
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
+
+        setState({
+            ...state,
+            [name]: value
+        })
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
-        dispatch(resetPassword(value));
+        dispatch(resetPassword(state));
     }
 
     useEffect(() => {
@@ -28,7 +43,7 @@ export const ForgotPasswordPage = () => {
             <div>
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className={"text text_type_main-medium"}>Восстановление пароля</h1>
-                    <EmailInput value={value} onChange={e => setValue(e.target.value)}
+                    <EmailInput value={state.email} name={"email"} onChange={handleOnChange}
                                 placeholder={"Укажите e-mail"}></EmailInput>
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Восстановить</Button>
                 </form>
@@ -36,6 +51,7 @@ export const ForgotPasswordPage = () => {
                     <div>Вспомнили пароль? <Link to={AppRoute.login} className={styles.link}>Войти</Link></div>
                 </div>
             </div>
+            { resetPasswordRequest && <Preloader text={"Отправляем код на e-mail..."}/>}
         </div>
     )
 }
