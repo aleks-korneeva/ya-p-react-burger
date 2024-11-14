@@ -8,6 +8,7 @@ import {setPasswordReducer} from "./reducers/set-password";
 import {authReducer} from "./reducers/auth";
 import {logoutReducer} from "./reducers/logout";
 import {loginReducer} from "./reducers/login";
+import {updateUserReducer} from "./reducers/update-user";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientReducer,
@@ -19,4 +20,5 @@ export const rootReducer = combineReducers({
     auth: authReducer,
     logout: logoutReducer,
     login: loginReducer,
+    updateUser: updateUserReducer
 });

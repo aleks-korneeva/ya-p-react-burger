@@ -2,12 +2,13 @@ import styles from "../profile-page.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {updateUser} from "../../services/actions/auth";
+import {updateUser} from "../../services/actions/update-user";
 import {Preloader} from "../../components/preloader/preloader";
 
 export const ProfileInfo = () => {
     const dispatch = useDispatch();
     const {user} = useSelector((state) => state.auth);
+    const {updateUserRequest} = useSelector(state => state.updateUser)
     const [state, setState] = useState({
         name: '',
         email: '',
@@ -54,14 +55,14 @@ export const ProfileInfo = () => {
                                type={"password"}
                                onIconClick={e => e}></Input>
                         {user && hasChanges ?
-                            <div>
+                            <div className={styles.buttons}>
+                                <Button htmlType={"button"} type="secondary" size={"medium"} onClick={handleReset}>Отменить</Button>
                                 <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
-                                <Button htmlType={"button"} type={"primary"} size={"medium"}
-                                        onClick={handleReset}>Отменить</Button>
                             </div> : ''}
                     </form>
                 </div>
                 : <Preloader/>}
+            {updateUserRequest && <Preloader text={"Обновляем данные..."}/>}
         </div>
     )
 }

@@ -38,6 +38,11 @@
 }
 
 .active {
-    /*composes: text_color_primary from global;*/
     color: white;
+}
+
+.buttons {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
 }

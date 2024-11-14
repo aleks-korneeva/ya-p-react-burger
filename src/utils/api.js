@@ -78,9 +78,10 @@ export const logout = () => {
     }
 
     return request(apiEndpointLogout, requestOptions)
-        .then(() => {
+        .then((data) => {
                 localStorage.removeItem(StorageKey.ACCESS_TOKEN);
                 localStorage.removeItem(StorageKey.REFRESH_TOKEN);
+                return data;
             }
         )
 }

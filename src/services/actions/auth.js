@@ -5,19 +5,10 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
 
-export const GET_USER_REQUEST = 'GET_USER_REQUEST';
-export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
-export const GET_USER_FAILED = 'GET_USER_FAILED';
-
-export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
-
 export const SET_USER = 'SET_USER';
 export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
 
 const apiEndpointRegister = 'auth/register';
-const apiEndpointUser = 'auth/user';
 
 export function setUser(user) {
     return {
@@ -90,37 +81,7 @@ export function register(formData) {
     }
 }
 
-export function updateUser(formData) {
-    return function (dispatch) {
-        dispatch({
-            type: UPDATE_USER_REQUEST
-        })
 
-        const requestOptions = {
-            method: 'PATCH',
-            headers: {
-                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(formData)
-        }
-
-        requestWithRefreshToken(apiEndpointUser, requestOptions)
-            .then((data) => {
-                    dispatch({
-                        type: UPDATE_USER_SUCCESS,
-                        user: data.user
-                    })
-                }
-            )
-            .catch(error => {
-                dispatch({
-                    type: UPDATE_USER_FAILED,
-                    error: error
-                })
-            })
-    }
-}
 
 
 

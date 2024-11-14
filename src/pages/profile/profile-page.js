@@ -1,12 +1,13 @@
 import styles from "../profile-page.module.css";
 import {NavLink, Outlet} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../services/actions/logout";
 import {AppRoute} from "../../utils/routes";
+import {Preloader} from "../../components/preloader/preloader";
 
-//todo изменять текст
 export const ProfilePage = () => {
     const dispatch = useDispatch();
+    const {logoutRequest} = useSelector(state => state.logout);
     function handleLogout() {
         dispatch(logout())
     }
@@ -28,6 +29,7 @@ export const ProfilePage = () => {
                 </div>
             </div>
             <Outlet />
+            { logoutRequest && <Preloader text={"Выход..."}/>}
         </div>
     )
 }
