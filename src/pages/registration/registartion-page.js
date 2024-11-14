@@ -46,7 +46,7 @@ export const RegistrationPage = () => {
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Зарегистрироваться</Button>
                 </form>
                 <div className={styles.sign_in_container}>
-                    <div>Уже зарегистрированы? <Link to={AppRoute.login} className={styles.link}>Войти</Link></div>
+                    <div>Уже зарегистрированы? <Link to={AppRoute.LOGIN} className={styles.link}>Войти</Link></div>
                 </div>
             </div>
             {registerRequest && <Preloader text={"Регистрация..."}/>}

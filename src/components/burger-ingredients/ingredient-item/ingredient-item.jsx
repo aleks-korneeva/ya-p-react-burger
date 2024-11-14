@@ -26,7 +26,7 @@ export default function IngredientItem({ingredient}) {
     const location = useLocation();
 
     function handleOpenModal() {
-        navigate(`${AppRoute.ingredient}/${ingredient._id}`, { state: { backgroundLocation: location, item: ingredient } });
+        navigate(`${AppRoute.INGREDIENTS}/${ingredient._id}`, { state: { backgroundLocation: location, item: ingredient } });
     }
 
     const [{ isDragging }, drag] = useDrag(() => ({

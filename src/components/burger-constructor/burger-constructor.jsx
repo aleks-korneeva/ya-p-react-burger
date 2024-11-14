@@ -28,7 +28,7 @@ export const BurgerConstructor = () => {
 
     function handleMakeOrder() {
         if (!user) {
-            navigate(`${AppRoute.login}`);
+            navigate(`${AppRoute.LOGIN}`);
         } else {
             const ids = [bun._id, ...ingredients.map(e => e._id), bun._id];
             dispatch(createOrder(ids));

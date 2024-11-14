@@ -34,7 +34,7 @@ export const ForgotPasswordPage = () => {
 
     useEffect(() => {
         if (resetPasswordSuccess && localStorage.getItem(StorageKey.REDIRECT_SET_PASSWORD) === 'true') {
-            navigate(AppRoute.resetPassword, {replace: true});
+            navigate(AppRoute.RESET_PASSWORD, {replace: true});
         }
     }, [resetPasswordSuccess, navigate])
 
@@ -48,7 +48,7 @@ export const ForgotPasswordPage = () => {
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Восстановить</Button>
                 </form>
                 <div className={styles.sign_in_container}>
-                    <div>Вспомнили пароль? <Link to={AppRoute.login} className={styles.link}>Войти</Link></div>
+                    <div>Вспомнили пароль? <Link to={AppRoute.LOGIN} className={styles.link}>Войти</Link></div>
                 </div>
             </div>
             { resetPasswordRequest && <Preloader text={"Отправляем код на e-mail..."}/>}

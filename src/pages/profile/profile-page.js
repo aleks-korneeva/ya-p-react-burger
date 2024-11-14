@@ -19,7 +19,7 @@ export const ProfilePage = () => {
                          className={({isActive}) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}>
                          Профиль
                          </NavLink>
-                <NavLink to={AppRoute.orders}
+                <NavLink to={AppRoute.ORDERS}
                          className={({isActive}) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}>
                     История заказов
                 </NavLink>

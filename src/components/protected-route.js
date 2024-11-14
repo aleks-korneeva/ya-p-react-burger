@@ -14,11 +14,11 @@ const ProtectedRoute = ({element, onlyUnAuth = false}) => {
     }
 
     if (!onlyUnAuth && !user) {
-        return <Navigate to={AppRoute.login} state={{from: location}} />
+        return <Navigate to={AppRoute.LOGIN} state={{from: location}} />
     }
 
     if (onlyUnAuth && user) {
-        const { from } = location.state || { from: { pathname: AppRoute.main } };
+        const { from } = location.state || { from: { pathname: AppRoute.HOME } };
         return <Navigate to={from} />
     }
 

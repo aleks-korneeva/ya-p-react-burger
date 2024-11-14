@@ -42,7 +42,7 @@ export const ResetPasswordPage = () => {
     useEffect(() => {
         const resetPassword = localStorage.getItem(StorageKey.PASSWORD_RESET);
         if (setPasswordSuccess && resetPassword === 'false') {
-            navigate(AppRoute.login, {replace: true});
+            navigate(AppRoute.LOGIN, {replace: true});
         }
     }, [setPasswordSuccess, navigate])
 
@@ -62,10 +62,10 @@ export const ResetPasswordPage = () => {
                             <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
                         </form>
                         <div className={styles.sign_in_container}>
-                        <div>Вспомнили пароль? <Link to={AppRoute.login} className={styles.link}>Войти</Link></div>
+                        <div>Вспомнили пароль? <Link to={AppRoute.LOGIN} className={styles.link}>Войти</Link></div>
                         </div>
                     </div>
-                </div> : <Navigate to={AppRoute.main}/>}
+                </div> : <Navigate to={AppRoute.HOME}/>}
             { setPasswordRequest && <Preloader text={"Устанавливаем новый пароль..."}/>}
         </div>)
 }

@@ -32,7 +32,7 @@ function App() {
     const navigate = useNavigate();
 
     function handleClose(e) {
-        navigate(AppRoute.main);
+        navigate(AppRoute.HOME);
         e.stopPropagation();
     }
 
@@ -42,22 +42,22 @@ function App() {
             <main>
                 { state?.backgroundLocation && (
                     <Routes>
-                        <Route path={`${AppRoute.ingredient}/:id`}  element={<Modal children={<IngredientDetails ingredient={state.item}/>} onCloseCallback={handleClose} />} />
+                        <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} onCloseCallback={handleClose} />} />
                     </Routes>
                 )}
                 {/*<Routes location={state || location}>*/}
                 <Routes>
-                    <Route path={AppRoute.main} element={<HomePage/>}/>
-                    <Route path={`${AppRoute.ingredient}/:id`} element={<IngredientPage/>}/>
-                    <Route path={AppRoute.login} element={<OnlyUnAuthRoute element={<LoginPage/>}/>}/>
-                    <Route path={AppRoute.register} element={<OnlyUnAuthRoute element={<RegistrationPage/>}/>}/>
-                    <Route path={AppRoute.forgotPassword} element={<OnlyUnAuthRoute element={<ForgotPasswordPage/>}/>}/>
-                    <Route path={AppRoute.resetPassword} element={<OnlyUnAuthRoute element={<ResetPasswordPage/>}/>}/>
-                    <Route path={AppRoute.profile} element={<OnlyAuthRoute element={<ProfilePage/>}/>}>
+                    <Route path={AppRoute.HOME} element={<HomePage/>}/>
+                    <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<IngredientPage/>}/>
+                    <Route path={AppRoute.LOGIN} element={<OnlyUnAuthRoute element={<LoginPage/>}/>}/>
+                    <Route path={AppRoute.REGISTER} element={<OnlyUnAuthRoute element={<RegistrationPage/>}/>}/>
+                    <Route path={AppRoute.FORGOT_PASSWORD} element={<OnlyUnAuthRoute element={<ForgotPasswordPage/>}/>}/>
+                    <Route path={AppRoute.RESET_PASSWORD} element={<OnlyUnAuthRoute element={<ResetPasswordPage/>}/>}/>
+                    <Route path={AppRoute.PROFILE} element={<OnlyAuthRoute element={<ProfilePage/>}/>}>
                         <Route index element={<ProfileInfo/>}/>
-                        <Route path={AppRoute.orders} element={<ProfileOrders/>}/>
+                        <Route path={AppRoute.ORDERS} element={<ProfileOrders/>}/>
                     </Route>
-                    <Route path={AppRoute.notFound} element={<NotFoundPage/>}/>
+                    <Route path={AppRoute.NOT_FOUND} element={<NotFoundPage/>}/>
                 </Routes>
             </main>
         </>

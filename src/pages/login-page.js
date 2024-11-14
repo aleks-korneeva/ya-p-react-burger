@@ -44,9 +44,9 @@ export const LoginPage = () => {
                 <div className={styles.sign_in_container}>
                     <div>
                         <span className={"mr-2"}>Вы - новый пользователь?</span>
-                        <Link to={AppRoute.register} className={styles.link}>Зарегестрироваться</Link>
+                        <Link to={AppRoute.REGISTER} className={styles.link}>Зарегестрироваться</Link>
                     </div>
-                    <div>Забыли пароль? <Link to={AppRoute.forgotPassword} className={styles.link}>Восстановить пароль</Link>
+                    <div>Забыли пароль? <Link to={AppRoute.FORGOT_PASSWORD} className={styles.link}>Восстановить пароль</Link>
                     </div>
                 </div>
             </div>
