@@ -33,7 +33,20 @@ export const ResetPasswordPage = () => {
         dispatch(setPassword(state));
     }
 
-    const resetPassword = localStorage.getItem(StorageKey.PASSWORD_RESET);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem(StorageKey.REDIRECT_SET_PASSWORD, 'false');
+    }, [])
+
+    useEffect(() => {
+        const resetPassword = localStorage.getItem(StorageKey.PASSWORD_RESET);
+        if (setPasswordSuccess && resetPassword === 'false') {
+            navigate(AppRoute.login, {replace: true});
+        }
+    }, [setPasswordSuccess, navigate])
+
+    const resetPassword = localStorage.getItem(StorageKey.PASSWORD_RESET) === 'true';
 
     return (
         <div>

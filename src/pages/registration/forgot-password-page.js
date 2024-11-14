@@ -33,7 +33,7 @@ export const ForgotPasswordPage = () => {
     }
 
     useEffect(() => {
-        if (resetPasswordSuccess) {
+        if (resetPasswordSuccess && localStorage.getItem(StorageKey.REDIRECT_SET_PASSWORD) === 'true') {
             navigate(AppRoute.resetPassword, {replace: true});
         }
     }, [resetPasswordSuccess, navigate])

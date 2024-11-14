@@ -147,6 +147,7 @@ export function resetPassword(formData) {
     return request(apiEndpointResetPassword, requestOptions)
         .then((data) => {
                 localStorage.setItem(StorageKey.PASSWORD_RESET, 'true');
+                localStorage.setItem(StorageKey.REDIRECT_SET_PASSWORD, 'true');
                 return data;
             }
         )
