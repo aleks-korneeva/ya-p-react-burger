@@ -45,8 +45,7 @@ function App() {
                         <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} onCloseCallback={handleClose} />} />
                     </Routes>
                 )}
-                {/*<Routes location={state || location}>*/}
-                <Routes>
+                <Routes location={state?.backgroundLocation || location}>
                     <Route path={AppRoute.HOME} element={<HomePage/>}/>
                     <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<IngredientPage/>}/>
                     <Route path={AppRoute.LOGIN} element={<OnlyUnAuthRoute element={<LoginPage/>}/>}/>
