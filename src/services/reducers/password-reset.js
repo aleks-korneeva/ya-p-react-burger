@@ -9,7 +9,7 @@ const initialState = {
 export const passwordResetReducer = (state = initialState, action) => {
     switch (action.type) {
         case RESET_PASSWORD_REQUEST: {
-            return {...state, resetPasswordRequest: true };
+            return {...state, resetPasswordRequest: true, resetPasswordFailed: false, resetPasswordSuccess: false };
         }
         case RESET_PASSWORD_SUCCESS: {
             return {...state, resetPasswordRequest: false, resetPasswordFailed: false, resetPasswordSuccess: true };

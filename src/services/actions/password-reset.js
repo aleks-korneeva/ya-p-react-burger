@@ -1,4 +1,5 @@
 import {request} from "../../utils/api";
+import {StorageKey} from "../../utils/storage-key";
 
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
@@ -23,10 +24,12 @@ export function resetPassword(email) {
         }
 
         request(apiEndpoint, requestOptions)
-            .then(
-                dispatch({
-                    type: RESET_PASSWORD_SUCCESS
-                })
+            .then(() => {
+                    dispatch({
+                        type: RESET_PASSWORD_SUCCESS
+                    })
+                    localStorage.setItem(StorageKey.PASSWORD_RESET, 'true');
+                }
             )
             .catch(error => {
                 dispatch({
