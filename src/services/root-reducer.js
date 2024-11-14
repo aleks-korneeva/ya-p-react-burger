@@ -6,6 +6,7 @@ import {burgerConstructorReducer} from "./reducers/constructor-ingredients";
 import {passwordResetReducer} from "./reducers/password-reset";
 import {setPasswordReducer} from "./reducers/set-password";
 import {authReducer} from "./reducers/auth";
+import {logoutReducer} from "./reducers/logout";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
     passwordReset: passwordResetReducer,
     setPassword: setPasswordReducer,
     auth: authReducer,
+    logout: logoutReducer
 });

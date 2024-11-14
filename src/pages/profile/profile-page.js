@@ -1,7 +1,7 @@
 import styles from "../profile-page.module.css";
 import {NavLink, Outlet} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {logout} from "../../services/actions/auth";
+import {logout} from "../../services/actions/logout";
 import {AppRoute} from "../../utils/routes";
 
 //todo изменять текст

@@ -9,10 +9,6 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILED = 'LOGOUT_FAILED';
-
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
@@ -26,7 +22,6 @@ export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
 
 const apiEndpointRegister = 'auth/register';
 const apiEndpointLogin = 'auth/login';
-const apiEndpointLogout = 'auth/logout';
 const apiEndpointUser = 'auth/user';
 
 export function setUser(user) {
@@ -128,43 +123,6 @@ export function login(formData) {
             .catch(error => {
                 dispatch({
                     type: LOGIN_FAILED,
-                    error: error
-                })
-            })
-    }
-}
-
-export function logout() {
-    return function (dispatch) {
-        dispatch({
-            type: LOGOUT_REQUEST
-        })
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                token: localStorage.getItem(StorageKey.REFRESH_TOKEN)
-            })
-        }
-
-        request(apiEndpointLogout, requestOptions)
-            .then(() => {
-                    localStorage.removeItem(StorageKey.ACCESS_TOKEN);
-                    localStorage.removeItem(StorageKey.REFRESH_TOKEN);
-                    dispatch(setUser(null))
-                    dispatch({
-                        type: LOGOUT_SUCCESS,
-                        user: null
-                    })
-                }
-            )
-            .catch(error => {
-                dispatch({
-                    type: LOGOUT_FAILED,
                     error: error
                 })
             })
