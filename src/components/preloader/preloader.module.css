@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    composes: pt-10 pb-10 pl-20 pr-20 from global;
+    background: var(--background);
+    border-radius: var(--common-border-radius-s);
+    z-index: 1000;
+    box-sizing: border-box;
+}

@@ -3,7 +3,7 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {updateUser} from "../../services/actions/auth";
-import {Preloader} from "../../components/preloader";
+import {Preloader} from "../../components/preloader/preloader";
 
 export const ProfileInfo = () => {
     const dispatch = useDispatch();

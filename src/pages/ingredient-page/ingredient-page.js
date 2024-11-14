@@ -12,7 +12,10 @@ export const IngredientPage = () => {
     return (
         <div className={styles.container}>
             { ingredient ?
-                <IngredientDetails ingredient={ingredient}/>
+                <div>
+                    <h1 className={`text text_type_main-large ${styles.title}`}>Детали ингредиента</h1>
+                    <IngredientDetails ingredient={ingredient}/>
+                </div>
                 :
                 <div></div>
             }

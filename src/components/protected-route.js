@@ -1,6 +1,6 @@
 import { useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
-import {Preloader} from "./preloader";
+import {Preloader} from "./preloader/preloader";
 import {AppRoute} from "../utils/routes";
 import PropTypes from "prop-types";
 

@@ -9,24 +9,33 @@ import {DELETE_ALL_INGREDIENTS, MOVE_INGREDIENT} from "../../services/actions/co
 import {useDrop} from "react-dnd";
 import {DraggableElement} from "./draggable-ingredient/draggable-element";
 import {DraggableItemTypes} from "../../utils/draggable-item-types";
+import {AppRoute} from "../../utils/routes";
+import {useNavigate} from "react-router-dom";
+import {Preloader} from "../preloader/preloader";
 
 export const BurgerConstructor = () => {
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
+    const {user} = useSelector(state => state.auth);
 
     const total = useMemo(() => {
         const ingredientsTotal = ingredients.reduce((sum, cur) => sum + cur.price, 0);
         return bun ? bun.price * 2 + ingredientsTotal : ingredientsTotal;
     }, [ingredients, bun]);
 
-    const {orderNumber, isOpen} = useSelector(state => state.order);
+    const {orderNumber, isOpen, createOrderRequest} = useSelector(state => state.order);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function handleMakeOrder() {
-        const ids = [bun._id, ...ingredients.map(e => e._id), bun._id];
-        dispatch(createOrder(ids));
-        dispatch({
-            type: OPEN_ORDER_MODAL
-        })
+        if (!user) {
+            navigate(`${AppRoute.login}`);
+        } else {
+            const ids = [bun._id, ...ingredients.map(e => e._id), bun._id];
+            dispatch(createOrder(ids));
+            dispatch({
+                type: OPEN_ORDER_MODAL
+            })
+        }
     }
 
     function handleCloseOrder() {
@@ -118,8 +127,12 @@ export const BurgerConstructor = () => {
                     </span>
                 <Button htmlType="button" type="primary" size="large" onClick={handleMakeOrder}>Оформить заказ</Button>
             </div>
+            {createOrderRequest &&
+                <Preloader text={"Оформляем заказ..."}/>
+            }
             {isOpen && orderNumber &&
-                <Modal children={<OrderDetails orderNumber={orderNumber}/>} onCloseCallback={handleCloseOrder}/>}
+                <Modal children={<OrderDetails orderNumber={orderNumber}/>} onCloseCallback={handleCloseOrder}/>
+            }
         </section>
     );
 }

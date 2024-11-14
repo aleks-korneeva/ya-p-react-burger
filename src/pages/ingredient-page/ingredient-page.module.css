@@ -2,3 +2,8 @@
     display: flex;
     justify-content: center;
 }
+
+.title {
+    composes: mt-10 from global;
+    text-align: center;
+}
