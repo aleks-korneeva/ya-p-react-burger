@@ -1,14 +1,8 @@
-import {api, request, requestWithRefreshToken} from "../../utils/api";
+import {api} from "../../utils/api";
 import {StorageKey} from "../../utils/storage-key";
-
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAILED = 'REGISTER_FAILED';
 
 export const SET_USER = 'SET_USER';
 export const SET_AUTH_CHECKED = 'SET_AUTH_CHECKED';
-
-const apiEndpointRegister = 'auth/register';
 
 export function setUser(user) {
     return {
@@ -45,39 +39,6 @@ export function checkUserAuth() {
         } else {
             dispatch(setAuthChecked(true));
         }
-    }
-}
-
-export function register(formData) {
-    return function (dispatch) {
-        dispatch({
-            type: REGISTER_REQUEST
-        })
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(formData)
-        }
-
-        request(apiEndpointRegister, requestOptions)
-            .then(data => {
-                    localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
-                    localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
-                    dispatch({
-                        type: REGISTER_SUCCESS,
-                        user: data.user
-                    })
-                }
-            )
-            .catch(error => {
-                dispatch({
-                    type: REGISTER_FAILED,
-                    error: error
-                })
-            })
     }
 }
 

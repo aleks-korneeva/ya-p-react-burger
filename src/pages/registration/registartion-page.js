@@ -1,10 +1,11 @@
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password-page.module.css";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {register} from "../../services/actions/auth";
+import {register} from "../../services/actions/register";
 import {AppRoute} from "../../utils/routes";
+import {Preloader} from "../../components/preloader/preloader";
 
 export const RegistrationPage = () => {
     const [state, setState] = useState({
@@ -14,6 +15,7 @@ export const RegistrationPage = () => {
     })
 
     const dispatch = useDispatch();
+    const {registerRequest} = useSelector(state => state.register);
 
     function handleOnChange(e) {
         const target = e.target;
@@ -47,6 +49,7 @@ export const RegistrationPage = () => {
                     <div>Уже зарегистрированы? <Link to={AppRoute.login} className={styles.link}>Войти</Link></div>
                 </div>
             </div>
+            {registerRequest && <Preloader text={"Регистрация..."}/>}
         </div>
     )
 }

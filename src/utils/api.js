@@ -87,17 +87,34 @@ export const logout = () => {
 }
 
 export function updateUser(formData) {
-        const requestOptions = {
-            method: 'PATCH',
-            headers: {
-                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(formData)
-        }
-
-        return requestWithRefreshToken(apiEndpointUser, requestOptions);
+    const requestOptions = {
+        method: 'PATCH',
+        headers: {
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(formData)
     }
+
+    return requestWithRefreshToken(apiEndpointUser, requestOptions);
+}
+
+export function register(formData) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(formData)
+    }
+
+    return request(apiEndpointRegister, requestOptions)
+        .then((data) => {
+            localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
+            localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
+            return data;
+        })
+}
 
 const checkResponse = (response) => {
     if (response && response.ok) {
@@ -141,5 +158,5 @@ export async function refreshToken() {
 }
 
 export const api = {
-    getUser, login, logout, updateUser
+    getUser, login, logout, updateUser, register
 }
