@@ -3,8 +3,10 @@ import {BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-b
 import styles from './app-header.module.css';
 import {NavLink} from "react-router-dom";
 import {AppRoute} from "../../utils/routes";
+import {useSelector} from "react-redux";
 
 const AppHeader = () => {
+    const {user} = useSelector(state => state.auth);
     return (
         <header>
             <div className={styles.nav}>
@@ -32,7 +34,7 @@ const AppHeader = () => {
                     {({isActive}) => (
                         <>
                             <ProfileIcon type={isActive ? "primary" : "secondary"} />
-                            <p className={"text ml-2"}>Личный кабинет</p>
+                            <p className={"text ml-2"}>{user && user.name ? user.name : 'Личный кабинет'}</p>
                         </>
                     )}
                 </NavLink>
