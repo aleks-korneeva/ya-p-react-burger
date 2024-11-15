@@ -1,0 +1,48 @@
+.content_wrapper {
+    display: flex;
+    justify-content: start;
+    gap: 60px;
+    margin: 0 auto;
+    max-width: 1460px;
+}
+
+.navigation {
+    composes: mt-30 from global;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+
+.content {
+    composes: mt-30 from global;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.sign_in_container {
+    composes: mt-10 text text_type_main-default text_color_inactive from global;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.link {
+    composes: text text_type_main-medium text_color_inactive mb-5 from global;
+    text-decoration: none;
+    height: 48px;
+    align-content: center;
+    cursor: pointer;
+}
+
+.active {
+    color: white;
+}
+
+.buttons {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}

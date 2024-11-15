@@ -3,10 +3,24 @@ import {ingredientReducer} from "./reducers/ingredients";
 import {ingredientDetailsReducer} from "./reducers/current-ingredient";
 import {createOrderReducer} from "./reducers/order";
 import {burgerConstructorReducer} from "./reducers/constructor-ingredients";
+import {passwordResetReducer} from "./reducers/password-reset";
+import {setPasswordReducer} from "./reducers/set-password";
+import {authReducer} from "./reducers/auth";
+import {logoutReducer} from "./reducers/logout";
+import {loginReducer} from "./reducers/login";
+import {updateUserReducer} from "./reducers/update-user";
+import {registerReducer} from "./reducers/register";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientReducer,
     currentIngredient: ingredientDetailsReducer,
     order: createOrderReducer,
-    burgerConstructor: burgerConstructorReducer
+    burgerConstructor: burgerConstructorReducer,
+    passwordReset: passwordResetReducer,
+    setPassword: setPasswordReducer,
+    auth: authReducer,
+    logout: logoutReducer,
+    login: loginReducer,
+    updateUser: updateUserReducer,
+    register: registerReducer
 });

@@ -1,4 +1,5 @@
 import {request} from "../../utils/api";
+import {StorageKey} from "../../utils/storage-key";
 
 export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
 export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';
@@ -18,7 +19,8 @@ export function createOrder(ingredients) {
         const requestOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN)
             },
             body: JSON.stringify({
                 ingredients: ingredients

@@ -17,10 +17,6 @@ export default function BurgerIngredients() {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getIngredients());
-    }, [dispatch])
-
     function getIngredientsByType(type) {
         return ingredients.filter(e => e.type === type);
     }
