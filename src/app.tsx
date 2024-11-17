@@ -14,7 +14,7 @@ import {useDispatch} from "react-redux";
 import {getIngredients} from "./services/actions/ingredients";
 import {OnlyAuthRoute, OnlyUnAuthRoute} from "./components/protected-route";
 import Modal from "./components/modal/modal";
-import IngredientDetails from "./components/burger-ingredients/ingredient-details/ingredient-details";
+import {IngredientDetails} from "./components/burger-ingredients/ingredient-details/ingredient-details";
 import {NotFoundPage} from "./pages/not-found-page/not-found-page";
 import {checkUserAuth} from "./services/actions/auth";
 import {AppRoute} from "./utils/routes";
@@ -23,7 +23,9 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // @ts-ignore
         dispatch(getIngredients());
+        // @ts-ignore
         dispatch(checkUserAuth())
     }, [dispatch])
 
@@ -31,9 +33,9 @@ function App() {
     const state = location.state;
     const navigate = useNavigate();
 
-    function handleClose(e) {
+    function handleClose(e?: Event) {
         navigate(AppRoute.HOME);
-        e.stopPropagation();
+        e?.stopPropagation();
     }
 
     return (

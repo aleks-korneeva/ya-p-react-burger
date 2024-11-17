@@ -2,12 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components"
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import PropTypes from "prop-types";
 import styles from './modal.module.css'
 
-const modalRoot = document.getElementById("modal-element");
+type TProps = {
+    title?: string;
+    children: React.JSX.Element;
+    onCloseCallback: (e?: Event) => void
+}
 
-export default function Modal ({title, children, onCloseCallback}){
+const modalRoot = document.getElementById("modal-element") as HTMLElement;
+
+export default function Modal ({title, children, onCloseCallback}: TProps){
     React.useEffect(() => {
             document.addEventListener("keydown", handleEscapeKeyDown);
             return () => {
@@ -16,7 +21,7 @@ export default function Modal ({title, children, onCloseCallback}){
         }, []
     )
 
-    const handleEscapeKeyDown = React.useCallback((e) => {
+    const handleEscapeKeyDown = React.useCallback((e: KeyboardEvent) => {
         if (e.key === "Escape") {
             onCloseCallback(e);
         }
@@ -36,10 +41,4 @@ export default function Modal ({title, children, onCloseCallback}){
             <ModalOverlay onClick={onCloseCallback}/>
         </div>
     ), modalRoot)
-}
-
-Modal.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.node.isRequired,
-    onCloseCallback: PropTypes.func.isRequired,
 }

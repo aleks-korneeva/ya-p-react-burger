@@ -6,6 +6,7 @@ import {AppRoute} from "../../utils/routes";
 import {useSelector} from "react-redux";
 
 const AppHeader = () => {
+    //@ts-ignore
     const {user} = useSelector(state => state.auth);
     return (
         <header>

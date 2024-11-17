@@ -2,7 +2,7 @@ import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-deve
 import styles from "./reset-password-page.module.css";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {register} from "../../services/actions/register";
 import {AppRoute} from "../../utils/routes";
 import {Preloader} from "../../components/preloader/preloader";
@@ -15,9 +15,10 @@ export const RegistrationPage = () => {
     })
 
     const dispatch = useDispatch();
+    //@ts-ignore
     const {registerRequest} = useSelector(state => state.register);
 
-    function handleOnChange(e) {
+    function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -28,8 +29,9 @@ export const RegistrationPage = () => {
         })
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        // @ts-ignore
         dispatch(register(state));
     }
 
