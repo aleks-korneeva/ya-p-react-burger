@@ -35,3 +35,11 @@ export type TAuthResponse = TResponse & {
     accessToken: string;
     refreshToken: string
 }
+
+export type TUserWithPassword = TUser & {
+    password: string;
+}
+
+export type TResponseWithMessage = TResponse & {
+    message: string;
+}
