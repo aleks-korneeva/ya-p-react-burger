@@ -2,12 +2,8 @@ import React, {RefObject, useRef} from "react";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import {IngredientsGroup} from "./ingredient-group/ingredients-group";
-import Modal from "../modal/modal";
-import IngredientDetails from "./ingredient-details/ingredient-details";
+import {useSelector} from "react-redux";
 import {BUN, MAIN, SAUCE} from '../../utils/ingredient-types';
-import {useDispatch, useSelector} from "react-redux";
-import {getIngredients} from "../../services/actions/ingredients";
-import {CLOSE_INGREDIENT} from "../../services/actions/current-ingredient";
 import {TIngredient, TIngredientsType} from "../../utils/types";
 
 type TTabRef = {
@@ -16,23 +12,12 @@ type TTabRef = {
 
 export default function BurgerIngredients(): React.JSX.Element {
     //@ts-ignore
-    const {isOpen, ingredientDetails} = useSelector(state => state.currentIngredient);
-    //@ts-ignore
     const {ingredients, ingredientRequest, ingredientFailed} = useSelector(state => state.ingredients);
 
     const [activeTab, setActiveTab] = React.useState(BUN);
 
-    const dispatch = useDispatch();
-
     function getIngredientsByType(type: string) {
         return ingredients.filter((e: TIngredient) => e.type === type);
-    }
-
-    function handleClose(e) {
-        dispatch({
-            type: CLOSE_INGREDIENT
-        })
-        e.stopPropagation();
     }
 
     const groupRefs: TTabRef = {};
@@ -90,10 +75,6 @@ export default function BurgerIngredients(): React.JSX.Element {
                     </div>
                 </div>
             )}
-            {isOpen &&
-                <Modal title={"Детали ингредиента"} children={<IngredientDetails ingredient={ingredientDetails}/>}
-                       onCloseCallback={handleClose}/>
-            }
         </section>
     )
 }
