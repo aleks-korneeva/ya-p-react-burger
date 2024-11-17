@@ -40,7 +40,8 @@ export const RegistrationPage = () => {
             <div>
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className={"text text_type_main-medium"}>Регистрация</h1>
-                    <Input value={state.name} onChange={handleOnChange} placeholder={"Имя"} name={"name"}></Input>
+                    <Input value={state.name} onChange={handleOnChange} placeholder={"Имя"} name={"name"}
+                           onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Input>
                     <EmailInput value={state.email} onChange={handleOnChange} placeholder={"E-mail"}
                                 name={"email"}></EmailInput>
                     <PasswordInput value={state.password} onChange={handleOnChange} placeholder={"Пароль"}

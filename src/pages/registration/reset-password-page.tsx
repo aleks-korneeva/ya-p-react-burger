@@ -60,7 +60,8 @@ export const ResetPasswordPage = () => {
                             <PasswordInput value={state.password} onChange={handleOnChange}
                                            placeholder={"Введите новый пароль"} name={"password"}></PasswordInput>
                             <Input value={state.token} onChange={handleOnChange}
-                                   placeholder={"Введите код из письма"} name={"token"}></Input>
+                                   placeholder={"Введите код из письма"} name={"token"}
+                                   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Input>
                             <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
                         </form>
                         <div className={styles.sign_in_container}>

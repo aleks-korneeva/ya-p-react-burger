@@ -49,14 +49,15 @@ export const ProfileInfo = () => {
             {user ? <div>
                     <form onSubmit={handleOnSubmit} className={styles.content}>
                         <Input name={"name"} value={state.name} onChange={handleOnChange} placeholder={"Имя"}
-                               icon={"EditIcon"} type={"text"}></Input>
+                               icon={"EditIcon"} type={"text"} onPointerEnterCapture={undefined}
+                               onPointerLeaveCapture={undefined}></Input>
                         <Input name={"email"} value={state.email} onChange={handleOnChange} placeholder={"Логин"}
                                icon={"EditIcon"}
-                               onIconClick={e => e}></Input>
+                               onPointerLeaveCapture={undefined} onPointerEnterCapture={undefined}></Input>
                         <Input name={"password"} value={state.password} onChange={handleOnChange} placeholder={"Пароль"}
                                icon={"EditIcon"}
                                type={"password"}
-                               onIconClick={e => e}></Input>
+                               onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Input>
                         {user && hasChanges ?
                             <div className={styles.buttons}>
                                 <Button htmlType={"button"} type="secondary" size={"medium"} onClick={handleReset}>Отменить</Button>
