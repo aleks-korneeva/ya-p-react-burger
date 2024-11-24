@@ -7,8 +7,10 @@ import {Preloader} from "../../components/preloader/preloader";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
+    //@ts-ignore
     const {logoutRequest} = useSelector(state => state.logout);
     function handleLogout() {
+        //@ts-ignore
         dispatch(logout())
     }
 

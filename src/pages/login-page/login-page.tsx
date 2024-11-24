@@ -1,7 +1,7 @@
 import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../registration/reset-password-page.module.css";
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../services/actions/login";
 import {AppRoute} from "../../utils/routes";
@@ -14,9 +14,10 @@ export const LoginPage = () => {
     })
 
     const dispatch = useDispatch();
+    //@ts-ignore
     const {loginRequest} = useSelector(state => state.login)
 
-    function handleOnChange(e) {
+    function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -27,8 +28,9 @@ export const LoginPage = () => {
         });
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        //@ts-ignore
         dispatch(login(state));
     }
 

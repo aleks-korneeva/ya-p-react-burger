@@ -1,8 +1,12 @@
 import React from "react";
-import ingredientPropsTypes from "../../../utils/ingredient-props-types";
 import styles from './ingredient-details.module.css'
+import {TIngredient} from "../../../utils/types";
 
-export default function IngredientDetails({ingredient}) {
+type TProps = {
+    ingredient: TIngredient
+}
+
+export function IngredientDetails({ingredient}: TProps) {
     return (
         <div className={styles.container}>
             <img src={ingredient.image_large} alt={ingredient.name}/>
@@ -27,8 +31,4 @@ export default function IngredientDetails({ingredient}) {
             </div>
         </div>
     )
-}
-
-IngredientDetails.propTypes = {
-    ingredient: ingredientPropsTypes.isRequired,
 }

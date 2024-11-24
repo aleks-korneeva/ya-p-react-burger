@@ -1,8 +1,7 @@
 import styles from './order-details.module.css'
 import accepted from '../../../images/order-accepted.png'
-import PropTypes from "prop-types";
 
-export default function OrderDetails({orderNumber}) {
+export default function OrderDetails({orderNumber}: {orderNumber: number}) {
     return (
         <div className={styles.container}>
             <p className={styles.order_number}>{orderNumber}</p>
@@ -15,8 +14,4 @@ export default function OrderDetails({orderNumber}) {
                 станции</p>
         </div>
     )
-}
-
-OrderDetails.propTypes = {
-    orderNumber: PropTypes.number.isRequired,
 }

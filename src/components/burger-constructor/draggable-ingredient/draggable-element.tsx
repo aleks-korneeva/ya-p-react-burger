@@ -4,14 +4,32 @@ import styles from './draggable-element.module.css';
 import {useDispatch} from "react-redux";
 import {DELETE_INGREDIENT} from "../../../services/actions/constructor-ingredients";
 import {useDrag, useDrop} from "react-dnd";
-import PropTypes from "prop-types";
-import ingredientPropsTypes from "../../../utils/ingredient-props-types";
 import {DraggableItemTypes} from "../../../utils/draggable-item-types";
+import {TIngredientWithKey} from "../../../utils/types";
+import type {Identifier} from "dnd-core";
 
-export const DraggableElement = ({index, item, moveIngredient}) => {
+type TProps = {
+    index: number;
+    item: TIngredientWithKey;
+    moveIngredient: (fromIndex: number, toIndex: number) => void;
+}
+
+type TDragObject = {
+    index: number;
+}
+
+type TDragCollectedProps = {
+    isDragging: boolean
+}
+
+type TDropCollectedProps = {
+    handlerId: Identifier | null
+}
+
+export const DraggableElement = ({index, item, moveIngredient}: TProps): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    function handleDeleteIngredient(key) {
+    function handleDeleteIngredient(key: string) {
         return function () {
             dispatch({
                 type: DELETE_INGREDIENT,
@@ -20,9 +38,9 @@ export const DraggableElement = ({index, item, moveIngredient}) => {
         }
     }
 
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-    const [{isDragging}, drag] = useDrag({
+    const [{isDragging}, drag] = useDrag<TDragObject, unknown, TDragCollectedProps>({
         type: DraggableItemTypes.CONSTRUCTOR_ITEM,
         item: {index},
         collect: (monitor) => ({
@@ -30,7 +48,7 @@ export const DraggableElement = ({index, item, moveIngredient}) => {
         }),
     })
 
-    const [{handlerId}, drop] = useDrop({
+    const [{handlerId}, drop] = useDrop<TDragObject, unknown, TDropCollectedProps>({
         accept: DraggableItemTypes.CONSTRUCTOR_ITEM,
         collect(monitor) {
             return {
@@ -51,6 +69,9 @@ export const DraggableElement = ({index, item, moveIngredient}) => {
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
+            if (!clientOffset) {
+                return;
+            }
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
             if (fromIndex < toIndex && hoverClientY < hoverMiddleY) {
                 return
@@ -74,12 +95,5 @@ export const DraggableElement = ({index, item, moveIngredient}) => {
                                 handleClose={handleDeleteIngredient(item.key)}
                                 extraClass={`${styles.constructor_element} ml-2`}/>
         </div>
-
     );
-}
-
-DraggableElement.propsType = {
-    index: PropTypes.number.isRequired,
-    item: ingredientPropsTypes.isRequired,
-    moveIngredient: PropTypes.func.isRequired
 }

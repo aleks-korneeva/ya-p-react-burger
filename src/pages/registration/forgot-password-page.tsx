@@ -3,7 +3,7 @@ import styles from "./reset-password-page.module.css";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../services/actions/password-reset";
-import React, {useEffect} from "react";
+import React, {ChangeEvent, FormEvent, useEffect} from "react";
 import {AppRoute} from "../../utils/routes";
 import {Preloader} from "../../components/preloader/preloader";
 import {StorageKey} from "../../utils/storage-key";
@@ -12,11 +12,12 @@ export const ForgotPasswordPage = () => {
     const [state, setState] = React.useState({
         email: ''
     });
+    //@ts-ignore
     const {resetPasswordSuccess, resetPasswordRequest} = useSelector(state => state.passwordReset);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    function handleOnChange(e) {
+    function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
         const target = e.target;
         const value = target.value;
         const name = target.name;
@@ -27,8 +28,9 @@ export const ForgotPasswordPage = () => {
         })
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        //@ts-ignore
         dispatch(resetPassword(state));
     }
 

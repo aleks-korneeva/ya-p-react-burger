@@ -1,6 +1,5 @@
 import styles from './ingredient-item.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import ingredientPropsTypes from "../../../utils/ingredient-props-types";
 import {useDispatch, useSelector} from "react-redux";
 import React from "react";
 import {BUN} from "../../../utils/ingredient-types";
@@ -9,15 +8,21 @@ import {ADD_BUN, addIngredient} from "../../../services/actions/constructor-ingr
 import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 import {useLocation, useNavigate} from "react-router-dom";
 import {AppRoute} from "../../../utils/routes";
+import {TIngredient} from "../../../utils/types";
 
-export default function IngredientItem({ingredient}) {
+type TProps = {
+    ingredient: TIngredient
+}
+
+export const IngredientItem = ({ingredient} : TProps) => {
+    //@ts-ignore
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
 
     const count = React.useMemo(() =>  {
         if (ingredient.type === BUN) {
             return bun && bun._id === ingredient._id ? 2 : 0;
         } else {
-            return ingredients.filter(e => e._id === ingredient._id).length;
+            return ingredients.filter((e: TIngredient) => e._id === ingredient._id).length;
         }
     }, [bun, ingredients]);
 
@@ -62,8 +67,4 @@ export default function IngredientItem({ingredient}) {
             <p className={"text text_type_main-default mt-1"}>{ingredient.name}</p>
         </div>
     )
-}
-
-IngredientItem.propTypes = {
-    ingredient: ingredientPropsTypes
 }

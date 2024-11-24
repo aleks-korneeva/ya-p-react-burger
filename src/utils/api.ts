@@ -1,4 +1,5 @@
 import {StorageKey} from "./storage-key";
+import {TAuthResponse, TResponse, TResponseWithMessage, TUser, TUserWithPassword} from "./types";
 
 const baseUrl = 'https://norma.nomoreparties.space/api/';
 const apiEndpointToken = 'auth/token';
@@ -9,12 +10,18 @@ const apiEndpointUser = 'auth/user';
 const apiEndpointResetPassword = 'password-reset';
 const apiEndpointSetPassword = 'password-reset/reset';
 
-export function requestWithRefreshToken(endpoint, options) {
-    return request(endpoint, options).catch(error => {
+export function requestWithRefreshToken<T extends TResponse>(endpoint: string, options: RequestInit): Promise<T> {
+    return request<T>(endpoint, options).catch(error => {
         if (error.message.includes("jwt expired")) {
             return refreshToken().then(() => {
-                options.headers.authorization = localStorage.getItem(StorageKey.ACCESS_TOKEN)
-                return request(endpoint, options);
+                const updatedOptions = {
+                    ...options,
+                    headers: {
+                        ...options.headers,
+                        authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN) || ''
+                    }
+                }
+                return request(endpoint, updatedOptions);
             });
         } else {
             return Promise.reject(error);
@@ -22,22 +29,22 @@ export function requestWithRefreshToken(endpoint, options) {
     })
 }
 
-export const request = (endpoint, options) => {
+export const request = <T extends TResponse>(endpoint: string, options?: RequestInit): Promise<T> => {
     const url = `${baseUrl}${endpoint}`;
     return fetch(url, options)
-        .then(checkResponse)
-        .then(checkSuccess);
+        .then(checkResponse<T>)
+        .then(checkSuccess<T>);
 }
 
-export const getUser = () => {
+export const getUser = (): Promise<Pick<TAuthResponse, "success" | "user">> => {
     const requestOptions = {
         method: 'GET',
         headers: {
-            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN)
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN) || ''
         }
     }
 
-    return requestWithRefreshToken("auth/user", requestOptions)
+    return requestWithRefreshToken<Pick<TAuthResponse, "success" | "user">>(apiEndpointUser, requestOptions)
         .then((data) => {
                 return data;
             }
@@ -49,7 +56,7 @@ export const getUser = () => {
         })
 }
 
-export const login = (formData) => {
+export const login = (formData: TUserWithPassword) => {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -58,7 +65,7 @@ export const login = (formData) => {
         body: JSON.stringify(formData)
     }
 
-    return request(apiEndpointLogin, requestOptions)
+    return request<TAuthResponse>(apiEndpointLogin, requestOptions)
         .then(data => {
                 localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
                 localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
@@ -67,11 +74,11 @@ export const login = (formData) => {
         )
 }
 
-export const logout = () => {
+export const logout = (): Promise<TResponseWithMessage> => {
     const requestOptions = {
         method: 'POST',
         headers: {
-            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN) || '',
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify({
@@ -79,7 +86,7 @@ export const logout = () => {
         })
     }
 
-    return request(apiEndpointLogout, requestOptions)
+    return request<TResponseWithMessage>(apiEndpointLogout, requestOptions)
         .then((data) => {
                 localStorage.removeItem(StorageKey.ACCESS_TOKEN);
                 localStorage.removeItem(StorageKey.REFRESH_TOKEN);
@@ -88,11 +95,11 @@ export const logout = () => {
         )
 }
 
-export function updateUser(formData) {
+export function updateUser(formData: TUserWithPassword): Promise<Pick<TAuthResponse, "success" | "user">> {
     const requestOptions = {
         method: 'PATCH',
         headers: {
-            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN) || '',
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(formData)
@@ -101,7 +108,7 @@ export function updateUser(formData) {
     return requestWithRefreshToken(apiEndpointUser, requestOptions);
 }
 
-export function register(formData) {
+export function register(formData: TUserWithPassword): Promise<TAuthResponse> {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -110,7 +117,7 @@ export function register(formData) {
         body: JSON.stringify(formData)
     }
 
-    return request(apiEndpointRegister, requestOptions)
+    return request<TAuthResponse>(apiEndpointRegister, requestOptions)
         .then((data) => {
             localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken);
             localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);
@@ -118,7 +125,7 @@ export function register(formData) {
         })
 }
 
-export function setPassword(formData) {
+export function setPassword(formData: {password: string, token: string}): Promise<TResponseWithMessage> {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -127,7 +134,7 @@ export function setPassword(formData) {
         body: JSON.stringify(formData)
     }
 
-    return request(apiEndpointSetPassword, requestOptions)
+    return request<TResponseWithMessage>(apiEndpointSetPassword, requestOptions)
         .then((data) => {
                 localStorage.setItem(StorageKey.PASSWORD_RESET, 'false');
                 return data;
@@ -135,7 +142,7 @@ export function setPassword(formData) {
         )
 }
 
-export function resetPassword(formData) {
+export function resetPassword(formData: Pick<TUser, "email">): Promise<TResponseWithMessage> {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -144,7 +151,7 @@ export function resetPassword(formData) {
         body: JSON.stringify(formData)
     }
 
-    return request(apiEndpointResetPassword, requestOptions)
+    return request<TResponseWithMessage>(apiEndpointResetPassword, requestOptions)
         .then((data) => {
                 localStorage.setItem(StorageKey.PASSWORD_RESET, 'true');
                 localStorage.setItem(StorageKey.REDIRECT_SET_PASSWORD, 'true');
@@ -153,7 +160,7 @@ export function resetPassword(formData) {
         )
 }
 
-const checkResponse = (response) => {
+const checkResponse= <T>(response: Response): Promise<T> => {
     if (response && response.ok) {
         return response.json()
     } else {
@@ -163,19 +170,19 @@ const checkResponse = (response) => {
     }
 }
 
-const checkSuccess = (response) => {
+const checkSuccess = <T extends TResponse> (response: T): Promise<T> => {
     if (response && response.success) {
-        return response;
+        return Promise.resolve(response);
     } else {
         return Promise.reject(`Response is not success ${response}`);
     }
 }
 
-export async function refreshToken() {
+function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
     const requestOptions = {
         method: 'POST',
         headers: {
-            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN),
+            authorization: localStorage.getItem(StorageKey.ACCESS_TOKEN) || '',
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify({
@@ -183,7 +190,7 @@ export async function refreshToken() {
         })
     }
 
-    return request(apiEndpointToken, requestOptions)
+    return request<Omit<TAuthResponse, "user">>(apiEndpointToken, requestOptions)
         .then((data) => {
                 localStorage.setItem(StorageKey.ACCESS_TOKEN, data.accessToken)
                 localStorage.setItem(StorageKey.REFRESH_TOKEN, data.refreshToken);

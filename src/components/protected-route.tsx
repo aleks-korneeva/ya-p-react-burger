@@ -2,10 +2,16 @@ import { useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 import {Preloader} from "./preloader/preloader";
 import {AppRoute} from "../utils/routes";
-import PropTypes from "prop-types";
 
-const ProtectedRoute = ({element, onlyUnAuth = false}) => {
+type TProps = {
+    element: React.JSX.Element;
+    onlyUnAuth?: boolean;
+}
+
+const ProtectedRoute = ({element, onlyUnAuth = false} : TProps) => {
+    //@ts-ignore
     const { user } = useSelector(state => state.auth);
+    //@ts-ignore
     const isAuthChecked = useSelector(state => state.auth);
     const location = useLocation();
 
@@ -25,13 +31,8 @@ const ProtectedRoute = ({element, onlyUnAuth = false}) => {
     return element;
 }
 
-ProtectedRoute.propsType = {
-    element: PropTypes.element.isRequired,
-    onlyUnAuth: PropTypes.bool.isRequired
-}
-
 export const OnlyAuthRoute = ProtectedRoute;
-export const OnlyUnAuthRoute = ({element}) => {
+export const OnlyUnAuthRoute = ({element}: Pick<TProps, "element">) => {
     return (
         <ProtectedRoute element={element} onlyUnAuth={true} />
     )

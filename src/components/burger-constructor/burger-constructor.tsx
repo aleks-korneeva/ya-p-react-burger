@@ -12,16 +12,20 @@ import {DraggableItemTypes} from "../../utils/draggable-item-types";
 import {AppRoute} from "../../utils/routes";
 import {useNavigate} from "react-router-dom";
 import {Preloader} from "../preloader/preloader";
+import {TIngredient, TIngredientWithKey} from "../../utils/types";
 
 export const BurgerConstructor = () => {
+    //@ts-ignore
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
+    //@ts-ignore
     const {user} = useSelector(state => state.auth);
 
     const total = useMemo(() => {
-        const ingredientsTotal = ingredients.reduce((sum, cur) => sum + cur.price, 0);
+        const ingredientsTotal = ingredients.reduce((sum: number, cur: TIngredient) => sum + cur.price, 0);
         return bun ? bun.price * 2 + ingredientsTotal : ingredientsTotal;
     }, [ingredients, bun]);
 
+    //@ts-ignore
     const {orderNumber, isOpen, createOrderRequest} = useSelector(state => state.order);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,7 +34,8 @@ export const BurgerConstructor = () => {
         if (!user) {
             navigate(`${AppRoute.LOGIN}`);
         } else {
-            const ids = [bun._id, ...ingredients.map(e => e._id), bun._id];
+            const ids = [bun._id, ...ingredients.map((e: TIngredient) => e._id), bun._id];
+            // @ts-ignore
             dispatch(createOrder(ids));
             dispatch({
                 type: OPEN_ORDER_MODAL
@@ -63,7 +68,7 @@ export const BurgerConstructor = () => {
         }),
     }))
 
-    const moveIngredient = useCallback((fromIndex, toIndex) => {
+    const moveIngredient = useCallback((fromIndex: number, toIndex: number) => {
         dispatch({
             type: MOVE_INGREDIENT,
             fromIndex: fromIndex,
@@ -93,7 +98,7 @@ export const BurgerConstructor = () => {
 
                 <div className={styles.scrolled_elements_container} ref={drop}>
                     {ingredients && ingredients.length > 0 ?
-                        ingredients.map((item, index) => (
+                        ingredients.map((item: TIngredientWithKey, index: number) => (
                             <DraggableElement item={item} index={index} moveIngredient={moveIngredient} key={item.key}/>
                            ))
                         : (
