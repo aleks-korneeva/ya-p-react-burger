@@ -3,7 +3,6 @@ import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-deve
 import OrderDetails from "./order-details/order-details";
 import Modal from "../modal/modal";
 import styles from './burger-constructor.module.css';
-import {useDispatch, useSelector} from "react-redux";
 import {CLOSE_ORDER_MODAL, createOrder, OPEN_ORDER_MODAL} from "../../services/actions/order";
 import {DELETE_ALL_INGREDIENTS, MOVE_INGREDIENT} from "../../services/actions/constructor-ingredients";
 import {useDrop} from "react-dnd";
@@ -13,19 +12,17 @@ import {AppRoute} from "../../utils/routes";
 import {useNavigate} from "react-router-dom";
 import {Preloader} from "../preloader/preloader";
 import {TIngredient, TIngredientWithKey} from "../../utils/types";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 export const BurgerConstructor = () => {
-    //@ts-ignore
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
-    //@ts-ignore
     const {user} = useSelector(state => state.auth);
 
     const total = useMemo(() => {
-        const ingredientsTotal = ingredients.reduce((sum: number, cur: TIngredient) => sum + cur.price, 0);
+        const ingredientsTotal = ingredients.reduce((sum: number, cur: TIngredientWithKey) => sum + cur.price, 0);
         return bun ? bun.price * 2 + ingredientsTotal : ingredientsTotal;
     }, [ingredients, bun]);
 
-    //@ts-ignore
     const {orderNumber, isOpen, createOrderRequest} = useSelector(state => state.order);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -34,12 +31,13 @@ export const BurgerConstructor = () => {
         if (!user) {
             navigate(`${AppRoute.LOGIN}`);
         } else {
-            const ids = [bun._id, ...ingredients.map((e: TIngredient) => e._id), bun._id];
-            // @ts-ignore
-            dispatch(createOrder(ids));
-            dispatch({
-                type: OPEN_ORDER_MODAL
-            })
+            if (bun) {
+                const ids = [bun._id, ...ingredients.map((e: TIngredient) => e._id), bun._id];
+                dispatch(createOrder(ids));
+                dispatch({
+                    type: OPEN_ORDER_MODAL
+                })
+            }
         }
     }
 

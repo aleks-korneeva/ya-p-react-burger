@@ -1,13 +1,25 @@
-import {SET_PASSWORD_FAILED, SET_PASSWORD_REQUEST, SET_PASSWORD_SUCCESS} from "../actions/set-password";
+import {
+    SET_PASSWORD_FAILED,
+    SET_PASSWORD_REQUEST,
+    SET_PASSWORD_SUCCESS,
+    TSetPasswordAction
+} from "../actions/set-password";
 
-const initialState = {
+export type TSetPasswordState = {
+    setPasswordRequest: boolean,
+    setPasswordSuccess: boolean,
+    setPasswordFailed: boolean,
+    error: any
+}
+
+const initialState: TSetPasswordState = {
     setPasswordRequest: false,
     setPasswordSuccess: false,
     setPasswordFailed: false,
     error: null
 }
 
-export const setPasswordReducer = (state = initialState, action) => {
+export const setPasswordReducer = (state: TSetPasswordState = initialState, action: TSetPasswordAction) => {
     switch (action.type) {
         case SET_PASSWORD_REQUEST: {
             return {...state, setPasswordRequest: true, setPasswordFailed: false, setPasswordSuccess: false};

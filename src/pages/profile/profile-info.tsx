@@ -1,15 +1,13 @@
 import styles from "./profile-page.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {updateUser} from "../../services/actions/update-user";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 export const ProfileInfo = () => {
     const dispatch = useDispatch();
-    //@ts-ignore
     const {user} = useSelector((state) => state.auth);
-    //@ts-ignore
     const {updateUserRequest} = useSelector(state => state.updateUser)
     const [state, setState] = useState({
         name: '',
@@ -34,7 +32,6 @@ export const ProfileInfo = () => {
 
     function handleOnSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        //@ts-ignore
         dispatch(updateUser(state));
     }
 
@@ -42,7 +39,7 @@ export const ProfileInfo = () => {
         setState({...state, ...user})
     }
 
-    const hasChanges = state.name !== '' && (state.name !== user.name || state.email !== user.email || state.password !== '');
+    const hasChanges = state.name !== '' && user && (state.name !== user.name || state.email !== user.email || state.password !== '');
 
     return (
         <div>

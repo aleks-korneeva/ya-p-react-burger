@@ -3,17 +3,24 @@ import {
     CREATE_ORDER_FAILED,
     CREATE_ORDER_REQUEST,
     CREATE_ORDER_SUCCESS,
-    OPEN_ORDER_MODAL
+    OPEN_ORDER_MODAL, TOrderAction
 } from "../actions/order";
 
-const initialState = {
+export type TOrderState = {
+    orderNumber: number | null,
+    createOrderRequest: boolean,
+    createOrderFailed: boolean,
+    isOpen: boolean
+}
+
+const initialState: TOrderState = {
     orderNumber: null,
     createOrderRequest: false,
     createOrderFailed: false,
     isOpen: false
 }
 
-export const createOrderReducer = (state = initialState, action) => {
+export const createOrderReducer = (state: TOrderState = initialState, action: TOrderAction) => {
     switch (action.type) {
         case CREATE_ORDER_REQUEST: {
             return {...state, createOrderRequest: true };

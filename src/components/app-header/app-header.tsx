@@ -3,10 +3,9 @@ import {BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-b
 import styles from './app-header.module.css';
 import {NavLink} from "react-router-dom";
 import {AppRoute} from "../../utils/routes";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../hooks/hooks";
 
 const AppHeader = () => {
-    //@ts-ignore
     const {user} = useSelector(state => state.auth);
     return (
         <header>

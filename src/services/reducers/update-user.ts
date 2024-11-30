@@ -1,13 +1,20 @@
-import {UPDATE_USER_FAILED, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS} from "../actions/update-user";
+import {TUpdateUserAction, UPDATE_USER_FAILED, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS} from "../actions/update-user";
 
-const initialState = {
+export type TUpdateUserState = {
+    updateUserRequest: boolean,
+    updateUserSuccess: boolean,
+    updateUserFailed: boolean,
+    error: any,
+}
+
+const initialState: TUpdateUserState = {
     updateUserRequest: false,
     updateUserSuccess: false,
     updateUserFailed: false,
     error: null,
 }
 
-export const updateUserReducer = (state = initialState, action) => {
+export const updateUserReducer = (state: TUpdateUserState = initialState, action: TUpdateUserAction) => {
     switch (action.type) {
         case UPDATE_USER_REQUEST: {
             return {...state, updateUserRequest: true, updateUserSuccess: false, updateUserFailed: false };

@@ -1,13 +1,20 @@
-import {REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS} from "../actions/register";
+import {REGISTER_FAILED, REGISTER_REQUEST, REGISTER_SUCCESS, TRegisterAction} from "../actions/register";
 
-const initialState = {
+export type TRegisterState = {
+    registerRequest: boolean,
+    registerSuccess: boolean,
+    registerFailed: boolean,
+    error: any,
+}
+
+const initialState: TRegisterState = {
     registerRequest: false,
     registerSuccess: false,
     registerFailed: false,
     error: null,
 }
 
-export const registerReducer = (state = initialState, action) => {
+export const registerReducer = (state: TRegisterState = initialState, action: TRegisterAction) => {
     switch (action.type) {
         case REGISTER_REQUEST: {
             return {...state, registerRequest: true, registerSuccess: false, registerFailed: false };

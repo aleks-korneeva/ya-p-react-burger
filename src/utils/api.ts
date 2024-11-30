@@ -56,7 +56,7 @@ export const getUser = (): Promise<Pick<TAuthResponse, "success" | "user">> => {
         })
 }
 
-export const login = (formData: TUserWithPassword) => {
+export const login = (formData: { email: string, password: string }) => {
     const requestOptions = {
         method: 'POST',
         headers: {

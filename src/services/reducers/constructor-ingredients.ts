@@ -3,15 +3,21 @@ import {
     ADD_INGREDIENT,
     MOVE_INGREDIENT,
     DELETE_INGREDIENT,
-    DELETE_ALL_INGREDIENTS
+    DELETE_ALL_INGREDIENTS, IConstructorAction
 } from "../actions/constructor-ingredients";
+import {TIngredientWithKey} from "../../utils/types";
 
-const initialState = {
+export type TConstructorIngredientsState = {
+    bun?: TIngredientWithKey | null;
+    ingredients: TIngredientWithKey[];
+}
+
+const initialState: TConstructorIngredientsState = {
     bun: null,
     ingredients: []
 }
 
-export const burgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructorReducer = (state: TConstructorIngredientsState = initialState, action: IConstructorAction) => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             return {...state, ingredients: [...state.ingredients, action.ingredient]}
