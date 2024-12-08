@@ -3,7 +3,7 @@ import {Button, ConstructorElement, CurrencyIcon} from '@ya.praktikum/react-deve
 import OrderDetails from "./order-details/order-details";
 import Modal from "../modal/modal";
 import styles from './burger-constructor.module.css';
-import {CLOSE_ORDER_MODAL, createOrder, OPEN_ORDER_MODAL} from "../../services/actions/order";
+import {CLOSE_ORDER_MODAL, createOrder, OPEN_ORDER_MODAL} from "../../services/actions/create-order";
 import {DELETE_ALL_INGREDIENTS, MOVE_INGREDIENT} from "../../services/actions/constructor-ingredients";
 import {useDrop} from "react-dnd";
 import {DraggableElement} from "./draggable-ingredient/draggable-element";

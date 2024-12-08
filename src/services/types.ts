@@ -6,11 +6,12 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TIngredientsAction} from "./actions/ingredients";
 import {TLoginAction} from "./actions/login";
 import {TLogoutAction} from "./actions/logout";
-import {TOrderAction} from "./actions/order";
+import {TOrderAction} from "./actions/create-order";
 import {TResetPasswordAction} from "./actions/password-reset";
 import {TRegisterAction} from "./actions/register";
 import {TSetPasswordAction} from "./actions/set-password";
 import {TUpdateUserAction} from "./actions/update-user";
+import {TGetOrderAction} from "./actions/get-order";
 
 export type RootState = ReturnType<typeof store.getState>;
 type TApplicationActions = IUserAuthAction
@@ -22,7 +23,8 @@ type TApplicationActions = IUserAuthAction
     | TResetPasswordAction
     | TRegisterAction
     | TSetPasswordAction
-    | TUpdateUserAction;
+    | TUpdateUserAction
+    | TGetOrderAction;
 
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

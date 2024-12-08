@@ -4,7 +4,7 @@ import {
     CREATE_ORDER_REQUEST,
     CREATE_ORDER_SUCCESS,
     OPEN_ORDER_MODAL, TOrderAction
-} from "../actions/order";
+} from "../actions/create-order";
 
 export type TOrderState = {
     orderNumber: number | null,

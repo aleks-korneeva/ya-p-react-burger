@@ -1,5 +1,5 @@
 import {StorageKey} from "./storage-key";
-import {TAuthResponse, TResponse, TResponseWithMessage, TUser, TUserWithPassword} from "./types";
+import {TAuthResponse, TOrder, TResponse, TResponseWithMessage, TUser, TUserWithPassword} from "./types";
 
 const baseUrl = 'https://norma.nomoreparties.space/api/';
 const apiEndpointToken = 'auth/token';
@@ -9,6 +9,7 @@ const apiEndpointLogout = 'auth/logout';
 const apiEndpointUser = 'auth/user';
 const apiEndpointResetPassword = 'password-reset';
 const apiEndpointSetPassword = 'password-reset/reset';
+const apiEndpointGetOrder = 'orders';
 
 export function requestWithRefreshToken<T extends TResponse>(endpoint: string, options: RequestInit): Promise<T> {
     return request<T>(endpoint, options).catch(error => {
@@ -201,6 +202,14 @@ function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
         })
 }
 
+export function getOrder(number: number) {
+    const requestOptions = {
+        method: 'GET',
+    }
+
+    return request<{order: TOrder} & TResponse>(`${apiEndpointGetOrder}/${number}`, requestOptions);
+}
+
 export const api = {
-    getUser, login, logout, updateUser, register, resetPassword, setPassword
+    getUser, login, logout, updateUser, register, resetPassword, setPassword, getOrder
 }

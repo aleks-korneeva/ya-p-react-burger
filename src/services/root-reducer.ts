@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {ingredientReducer} from "./reducers/ingredients";
-import {createOrderReducer} from "./reducers/order";
+import {createOrderReducer} from "./reducers/create-order";
 import {burgerConstructorReducer} from "./reducers/constructor-ingredients";
 import {passwordResetReducer} from "./reducers/password-reset";
 import {setPasswordReducer} from "./reducers/set-password";
@@ -9,6 +9,7 @@ import {logoutReducer} from "./reducers/logout";
 import {loginReducer} from "./reducers/login";
 import {updateUserReducer} from "./reducers/update-user";
 import {registerReducer} from "./reducers/register";
+import {getOrderReducer} from "./reducers/get-order";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientReducer,
@@ -20,5 +21,6 @@ export const rootReducer = combineReducers({
     logout: logoutReducer,
     login: loginReducer,
     updateUser: updateUserReducer,
-    register: registerReducer
+    register: registerReducer,
+    getOrder: getOrderReducer
 });
