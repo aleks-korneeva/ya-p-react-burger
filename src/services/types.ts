@@ -11,6 +11,10 @@ import {TRegisterAction} from "./actions/register";
 import {TSetPasswordAction} from "./actions/set-password";
 import {TUpdateUserAction} from "./actions/update-user";
 import {TGetOrderAction} from "./actions/get-order";
+import {TOrderStatisticActions} from "./reducers/order-statistic";
+import {TUserOrdersActions} from "./reducers/user-orders";
+import {TWSOrderStatisticActions} from "./actions/order-statistic";
+import {TWSUserOrdersActions} from "./actions/user-orders";
 
 export type RootState = ReturnType<typeof store.getState>;
 type TApplicationActions = IUserAuthAction
@@ -23,6 +27,10 @@ type TApplicationActions = IUserAuthAction
     | TRegisterAction
     | TSetPasswordAction
     | TUpdateUserAction
-    | TGetOrderAction;
+    | TGetOrderAction
+    | TOrderStatisticActions
+    | TUserOrdersActions
+    | TWSOrderStatisticActions
+    | TWSUserOrdersActions;
 
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

@@ -10,6 +10,8 @@ import {loginReducer} from "./reducers/login";
 import {updateUserReducer} from "./reducers/update-user";
 import {registerReducer} from "./reducers/register";
 import {getOrderReducer} from "./reducers/get-order";
+import {orderStatisticSlice} from "./reducers/order-statistic";
+import {userOrdersSlice} from "./reducers/user-orders";
 
 export const rootReducer = combineReducers({
     ingredients: ingredientReducer,
@@ -22,5 +24,7 @@ export const rootReducer = combineReducers({
     login: loginReducer,
     updateUser: updateUserReducer,
     register: registerReducer,
-    getOrder: getOrderReducer
+    getOrder: getOrderReducer,
+    orderStatistic: orderStatisticSlice.reducer,
+    userOrders: userOrdersSlice.reducer
 });

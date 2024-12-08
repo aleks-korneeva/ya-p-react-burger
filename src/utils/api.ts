@@ -1,6 +1,9 @@
 import {StorageKey} from "./storage-key";
 import {TAuthResponse, TOrder, TResponse, TResponseWithMessage, TUser, TUserWithPassword} from "./types";
 
+const wsBaseUrl = "wss://norma.nomoreparties.space";
+export const wsAllOrdersEndpoint = `${wsBaseUrl}/orders/all`;
+export const wsUserOrdersEndpoint = `${wsBaseUrl}/orders`;
 const baseUrl = 'https://norma.nomoreparties.space/api/';
 const apiEndpointToken = 'auth/token';
 const apiEndpointRegister = 'auth/register';

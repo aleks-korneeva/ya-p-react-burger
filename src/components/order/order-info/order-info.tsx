@@ -51,7 +51,7 @@ export function OrderInfo({order}: TProps) {
                 )}
             </div>
             <div className={styles.summary_container}>
-                <FormattedDate date={order.createdAt} className={"text text_type_main-default text_color_inactive"}/>
+                <FormattedDate date={new Date(order.createdAt)} className={"text text_type_main-default text_color_inactive"}/>
                 <div className={styles.total_container}>
                     <span className={"text text_type_digits-default"}>{getTotalPrice()}</span>
                     <CurrencyIcon type={"primary"}/>

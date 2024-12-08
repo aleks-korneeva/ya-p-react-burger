@@ -4,7 +4,7 @@ export const OrderStatus = {
         title: "Выполнен"
     },
     IN_PROGRESS: {
-        name: "inProgress",
+        name: "pending",
         title: "Готовится"
     },
     CANCELLED: {

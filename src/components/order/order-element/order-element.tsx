@@ -35,7 +35,7 @@ export function OrderElement({order, maxIconsCount = 5}: TProps) {
         <div className={styles.element_container} onClick={handleOpenModal}>
             <div className={styles.components_container}>
                 <div className={"text text_type_digits-default mb-6"}>#{order.number}</div>
-                <FormattedDate date={order.createdAt} className={"text text_type_main-default text_color_inactive"}/>
+                <FormattedDate date={new Date(order.createdAt)} className={"text text_type_main-default text_color_inactive"}/>
             </div>
             <div className={"text text_type_main-medium mb-2"}>{order.name}</div>
             {order.status && <div className={"text text_type_main-default mb-6"}>{order.status}</div>}
