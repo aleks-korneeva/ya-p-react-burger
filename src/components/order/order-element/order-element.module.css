@@ -1,0 +1,28 @@
+.element_container {
+    padding: 24px;
+    background-color: var(--background);
+    border-radius: 30px;
+    min-width: 450px;
+    cursor: pointer;
+}
+
+.components_container {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.image {
+    margin-left: -20px;
+}
+
+.images_container {
+    display: flex;
+    margin-left: 20px;
+}
+
+.total_container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}

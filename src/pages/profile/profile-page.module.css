@@ -46,3 +46,14 @@
     justify-content: end;
     gap: 10px;
 }
+
+.orders_container {
+    composes: mt-10 from global;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: calc(100vh - 82px - 40px - 24px);
+    padding-right: 24px;
+}

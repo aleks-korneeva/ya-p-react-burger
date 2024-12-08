@@ -20,7 +20,7 @@ const AppHeader = () => {
                         )}
                     </NavLink>
 
-                    <NavLink to="/orders" className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
+                    <NavLink to={AppRoute.FEED} className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
                         {({isActive}) => (
                             <>
                                 <ListIcon type={isActive ? "primary" : "secondary"} />
@@ -29,7 +29,7 @@ const AppHeader = () => {
                         )}
                     </NavLink>
                 </nav>
-                <Logo/>
+                <Logo className={styles.logo}/>
                 <NavLink to={AppRoute.PROFILE} className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
                     {({isActive}) => (
                         <>

@@ -18,6 +18,9 @@ import {IngredientDetails} from "./components/burger-ingredients/ingredient-deta
 import {NotFoundPage} from "./pages/not-found-page/not-found-page";
 import {checkUserAuth} from "./services/actions/auth";
 import {AppRoute} from "./utils/routes";
+import {OrderInfoPage} from "./pages/order-info-page/order-info-page";
+import {OrderPage} from "./pages/orders-page/order-page";
+import {OrderInfo} from "./components/order/order-info/order-info";
 
 function App() {
     const dispatch = useDispatch();
@@ -34,7 +37,7 @@ function App() {
     const navigate = useNavigate();
 
     function handleClose(e?: Event) {
-        navigate(AppRoute.HOME);
+        navigate(state?.backgroundLocation);
         e?.stopPropagation();
     }
 
@@ -44,12 +47,15 @@ function App() {
             <main>
                 { state?.backgroundLocation && (
                     <Routes>
-                        <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} onCloseCallback={handleClose} />} />
+                        <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} title={"Детали ингредиента"} onCloseCallback={handleClose} />} />
+                        <Route path={`${AppRoute.FEED}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} />}/>
                     </Routes>
                 )}
                 <Routes location={state?.backgroundLocation || location}>
                     <Route path={AppRoute.HOME} element={<HomePage/>}/>
                     <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<IngredientPage/>}/>
+                    <Route path={`${AppRoute.FEED}/:number`} element={<OrderInfoPage/>}/>
+                    <Route path={`${AppRoute.FEED}`} element={<OrderPage/>}/>
                     <Route path={AppRoute.LOGIN} element={<OnlyUnAuthRoute element={<LoginPage/>}/>}/>
                     <Route path={AppRoute.REGISTER} element={<OnlyUnAuthRoute element={<RegistrationPage/>}/>}/>
                     <Route path={AppRoute.FORGOT_PASSWORD} element={<OnlyUnAuthRoute element={<ForgotPasswordPage/>}/>}/>

@@ -43,3 +43,18 @@ export type TUserWithPassword = TUser & {
 export type TResponseWithMessage = TResponse & {
     message: string;
 }
+
+export type TOrder = {
+    number: number;
+    status: string;
+    name: string;
+    ingredients: string[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type TOrders = {
+    orders: TOrder[];
+    total: number;
+    totalToday: number;
+}

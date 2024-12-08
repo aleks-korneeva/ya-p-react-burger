@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.order_number {
+    composes: text text_type_digits-default mb-10 from global;
+    text-align: center;
+}
+
+.order_components {
+    composes: pr-6 mb-10 from global;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: 360px;
+}
+
+.component_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    width: 500px;
+}
+
+.ingredient_name {
+    composes: text text_type_main-default from global;
+    flex: 1;
+}
+
+.total_container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.summary_container {
+    display: flex;
+    justify-content: space-between;
+}

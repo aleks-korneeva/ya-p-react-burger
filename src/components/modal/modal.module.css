@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    composes: pl-10 pr-10 from global;
+    composes: p-10 from global;
     background: var(--background);
     border-radius: var(--common-border-radius-s);
     width: 720px;
@@ -22,7 +22,7 @@
 }
 
 .header {
-    composes: mt-10 from global;
+    composes: mb-10 from global;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,7 +34,6 @@
 }
 
 .content {
-    composes: pr-10 pl-10 from global;
     width: 100%;
     box-sizing: border-box;
 }

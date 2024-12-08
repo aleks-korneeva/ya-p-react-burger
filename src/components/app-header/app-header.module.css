@@ -2,6 +2,13 @@ header {
     background-color: var(--background);
 }
 
+.logo {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .nav {
     composes: pt-4 pb-4 from global;
     display: flex;
@@ -9,6 +16,9 @@ header {
     justify-content: space-between;
     margin: 0 auto;
     width: 1500px;
+    height: 80px;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .menu_container {
@@ -16,6 +26,10 @@ header {
     flex-direction: row;
     justify-content: space-between;
     gap: 8px;
+}
+
+.nav > :last-child {
+    margin-left: auto;
 }
 
 .menu_item {

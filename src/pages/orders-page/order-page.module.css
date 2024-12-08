@@ -1,0 +1,24 @@
+.flex_container {
+    display: flex;
+    gap: 36px;
+    justify-content: space-between;
+}
+
+.orders_number_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 16px;
+}
+
+.orders_container {
+    composes: pr-2 from global;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow: auto;
+    max-height: calc(100vh - 180px);
+}
+
+.container_element {
+    flex: 1;
+}

@@ -1,0 +1,73 @@
+import styles from "./order-element.module.css";
+import React from "react";
+import {useSelector} from "../../../hooks/hooks";
+import {TOrder} from "../../../utils/types";
+import {IngredientImage} from "../ingredient-image/ingredient-image";
+import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
+import {AppRoute} from "../../../utils/routes";
+import {useLocation, useNavigate} from "react-router-dom";
+
+type TProps = {
+    order: TOrder;
+    maxIconsCount?: number;
+}
+
+export function OrderElement({order, maxIconsCount = 5}: TProps) {
+    const {ingredients} = useSelector(state => state.ingredients);
+
+    function getIngredientById(id: string) {
+        return ingredients.find(i => i._id === id);
+    }
+
+    function getTotalPrice() {
+        return order.ingredients.map(id => getIngredientById(id))
+            .reduce((sum, element) => sum + (element ? element.price : 0), 0);
+    }
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    function handleOpenModal() {
+        navigate(`${AppRoute.FEED}/${order.number}`, { state: { backgroundLocation: location, item: order } });
+    }
+
+    return (
+        <div className={styles.element_container} onClick={handleOpenModal}>
+            <div className={styles.components_container}>
+                <div className={"text text_type_digits-default mb-6"}>#{order.number}</div>
+                <FormattedDate date={order.createdAt} className={"text text_type_main-default text_color_inactive"}/>
+            </div>
+            <div className={"text text_type_main-medium mb-2"}>{order.name}</div>
+            {order.status && <div className={"text text_type_main-default mb-6"}>{order.status}</div>}
+            <div className={styles.components_container}>
+                <div className={styles.images_container}>
+                    {order.ingredients.map((id, index) => {
+                            if (index < maxIconsCount) {
+                                const ingredient = getIngredientById(id);
+                                return (
+                                    ingredient &&
+                                    <IngredientImage imageSource={ingredient.image_mobile}
+                                                     extraClass={`${styles.image} z-index-${maxIconsCount - index}`} key={index}/>
+                                )
+                            }
+                            if (index === maxIconsCount) {
+                                const ingredient = getIngredientById(id);
+                                const moreCount = order.ingredients.length - index;
+                                return (
+                                    ingredient &&
+                                    <IngredientImage imageSource={ingredient.image_mobile}
+                                                     extraClass={`${styles.image}`} text={`+${moreCount}`} key={index}/>
+                                )
+                            }
+                            return null;
+                        }
+                    )}
+                </div>
+                <div className={styles.total_container}>
+                    <span className={"text text_type_digits-default"}>{getTotalPrice()}</span>
+                    <CurrencyIcon type={"primary"}></CurrencyIcon>
+                </div>
+            </div>
+        </div>
+    )
+}
