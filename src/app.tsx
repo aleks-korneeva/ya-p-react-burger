@@ -21,14 +21,13 @@ import {AppRoute} from "./utils/routes";
 import {OrderInfoPage} from "./pages/order-info-page/order-info-page";
 import {OrderPage} from "./pages/orders-page/order-page";
 import {OrderInfo} from "./components/order/order-info/order-info";
+import {AppDispatch} from "./services/types";
 
 function App() {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getIngredients());
-        // @ts-ignore
         dispatch(checkUserAuth())
     }, [dispatch])
 

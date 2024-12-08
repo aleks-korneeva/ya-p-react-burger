@@ -1,8 +1,7 @@
 import {store} from "./store";
 import {IUserAuthAction} from "./actions/auth";
 import {IConstructorAction} from "./actions/constructor-ingredients";
-import {Action, ActionCreator} from "redux";
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {ThunkDispatch} from "redux-thunk";
 import {TIngredientsAction} from "./actions/ingredients";
 import {TLoginAction} from "./actions/login";
 import {TLogoutAction} from "./actions/logout";
@@ -26,5 +25,4 @@ type TApplicationActions = IUserAuthAction
     | TUpdateUserAction
     | TGetOrderAction;
 
-export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

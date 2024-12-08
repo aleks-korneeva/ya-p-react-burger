@@ -24,7 +24,7 @@ export interface IDeleteAllIngredientsAction {
 
 export interface IAddBunAction {
     readonly type: typeof ADD_BUN;
-    ingredient: TIngredientWithKey;
+    ingredient: TIngredient;
 }
 
 export interface IMoveIngredientAction {
@@ -40,7 +40,7 @@ export type IConstructorAction =
     | IAddBunAction
     | IMoveIngredientAction;
 
-export const addIngredient = (ingredient: TIngredient) => {
+export const addIngredient = (ingredient: TIngredient): IAddIngredientAction => {
     return {
         type: ADD_INGREDIENT,
         ingredient: {
