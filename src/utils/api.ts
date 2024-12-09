@@ -210,7 +210,7 @@ export function getOrder(number: number) {
         method: 'GET',
     }
 
-    return request<{order: TOrder} & TResponse>(`${apiEndpointGetOrder}/${number}`, requestOptions);
+    return request<{orders: TOrder[]} & TResponse>(`${apiEndpointGetOrder}/${number}`, requestOptions);
 }
 
 export const api = {

@@ -12,7 +12,7 @@ export interface IGetOrderRequestAction {
 
 export interface IGetOrderSuccessAction {
     readonly type: typeof GET_ORDER_SUCCESS;
-    readonly payload: TOrder;
+    readonly payload: TOrder[];
 }
 
 export interface IGetOrderFailedAction {
@@ -34,7 +34,7 @@ export function getOrder(number: number) {
             .then(data => {
                 dispatch({
                     type: GET_ORDER_SUCCESS,
-                    payload: data.order
+                    payload: data.orders
                 })
             })
             .catch(error => {

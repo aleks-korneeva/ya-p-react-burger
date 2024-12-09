@@ -19,8 +19,8 @@ export const OrderInfoPage = () => {
         if (order) {
             return order;
         }
-        
-        return state.getOrder.order;
+
+        return state.getOrder.orders?.length ? state.getOrder.orders[0] : null;
     })
 
     const dispatch = useDispatch();
