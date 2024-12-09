@@ -7,6 +7,7 @@
     top: 0;
     bottom: 0;
     right: 0;
+    z-index: 1001;
 }
 
 .dialog {
@@ -17,8 +18,8 @@
     background: var(--background);
     border-radius: var(--common-border-radius-s);
     width: 720px;
-    z-index: 1000;
     box-sizing: border-box;
+    z-index: 1002;
 }
 
 .header {

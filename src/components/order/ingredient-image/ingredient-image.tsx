@@ -9,7 +9,7 @@ type TProps = {
 
 export function IngredientImage({imageSource, text, extraClass}: TProps) {
     return (
-        <div className={`${extraClass}`}>
+        <div className={`${extraClass ? extraClass : ""}`}>
             <div className={`${styles.ingredient_image_container}`}>
                 <img src={imageSource} className={styles.ingredient_image} alt={""}></img>
                 {text &&
