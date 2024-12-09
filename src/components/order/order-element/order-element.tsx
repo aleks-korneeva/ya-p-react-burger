@@ -4,16 +4,15 @@ import {useSelector} from "../../../hooks/hooks";
 import {TOrder} from "../../../utils/types";
 import {IngredientImage} from "../ingredient-image/ingredient-image";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {AppRoute} from "../../../utils/routes";
-import {useLocation, useNavigate} from "react-router-dom";
 import {OrderStatus, OrderStatusEnum} from "../../../utils/order-status";
 
 type TProps = {
     order: TOrder;
     maxIconsCount?: number;
+    onClick?: (e?: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export function OrderElement({order, maxIconsCount = 5}: TProps) {
+export function OrderElement({order, maxIconsCount = 5, onClick}: TProps) {
     const {ingredients} = useSelector(state => state.ingredients);
 
     function getIngredientById(id: string) {
@@ -25,15 +24,8 @@ export function OrderElement({order, maxIconsCount = 5}: TProps) {
             .reduce((sum, element) => sum + (element ? element.price : 0), 0);
     }
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    function handleOpenModal() {
-        navigate(`${AppRoute.FEED}/${order.number}`, { state: { backgroundLocation: location, item: order } });
-    }
-
     return (
-        <div className={styles.element_container} onClick={handleOpenModal}>
+        <div className={styles.element_container} onClick={onClick}>
             <div className={styles.components_container}>
                 <div className={"text text_type_digits-default mb-6"}>#{order.number}</div>
                 <FormattedDate date={new Date(order.createdAt)} className={"text text_type_main-default text_color_inactive"}/>

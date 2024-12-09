@@ -7,6 +7,9 @@ import {wsConnect, wsDisconnect} from "../../services/actions/order-statistic";
 import {Preloader} from "../../components/preloader/preloader";
 import {wsAllOrdersEndpoint} from "../../utils/api";
 import {WebsocketStatus} from "../../utils/web-socket-status";
+import {AppRoute} from "../../utils/routes";
+import {useLocation, useNavigate} from "react-router-dom";
+import {TOrder} from "../../utils/types";
 
 export function OrderPage() {
     const dispatch = useDispatch();
@@ -24,6 +27,12 @@ export function OrderPage() {
         return statistic ? statistic.orders.filter(o => o.status === status).slice(0, 10) : [];
     }
 
+    const location = useLocation();
+    const navigate = useNavigate();
+    function handleOpenModal(order: TOrder) {
+        navigate(`${AppRoute.FEED}/${order.number}`, { state: { backgroundLocation: location, item: order } });
+    }
+
     return status === WebsocketStatus.ONLINE && statistic ? (
             <div className={"content_wrapper mt-10"}>
 
@@ -31,7 +40,7 @@ export function OrderPage() {
                     <h1 className={"text text_type_main-large mb-4"}>Лента заказов</h1>
                     <div className={styles.orders_container}>
                         {statistic && statistic.orders.map((order, index) => (
-                            <OrderElement order={order} key={index}/>
+                            <OrderElement order={order} key={index} onClick={() =>handleOpenModal(order)}/>
                         ))}
                     </div>
                 </div>

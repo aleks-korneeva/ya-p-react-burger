@@ -48,6 +48,7 @@ function App() {
                     <Routes>
                         <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} title={"Детали ингредиента"} onCloseCallback={handleClose} />} />
                         <Route path={`${AppRoute.FEED}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} titleCss={"text_type_digits-default"}/>}/>
+                        <Route path={`${AppRoute.PROFILE}/${AppRoute.ORDERS}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} titleCss={"text_type_digits-default"}/>}/>
                     </Routes>
                 )}
                 <Routes location={state?.backgroundLocation || location}>
@@ -55,6 +56,7 @@ function App() {
                     <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<IngredientPage/>}/>
                     <Route path={`${AppRoute.FEED}/:number`} element={<OrderInfoPage/>}/>
                     <Route path={`${AppRoute.FEED}`} element={<OrderPage/>}/>
+                    <Route path={`${AppRoute.PROFILE}/${AppRoute.ORDERS}/:number`} element={<OnlyAuthRoute element={<OrderInfoPage/>}/>}/>
                     <Route path={AppRoute.LOGIN} element={<OnlyUnAuthRoute element={<LoginPage/>}/>}/>
                     <Route path={AppRoute.REGISTER} element={<OnlyUnAuthRoute element={<RegistrationPage/>}/>}/>
                     <Route path={AppRoute.FORGOT_PASSWORD} element={<OnlyUnAuthRoute element={<ForgotPasswordPage/>}/>}/>
