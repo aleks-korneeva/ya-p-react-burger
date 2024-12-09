@@ -24,7 +24,7 @@ export function OrderPage() {
     }, [dispatch])
 
     function getOrdersWithStatus(status: string) {
-        return statistic ? statistic.orders.filter(o => o.status === status).slice(0, 10) : [];
+        return statistic ? statistic.orders.filter(o => o.status === status).slice(0, 20) : [];
     }
 
     const location = useLocation();
@@ -35,12 +35,11 @@ export function OrderPage() {
 
     return status === WebsocketStatus.ONLINE && statistic ? (
             <div className={"content_wrapper mt-10"}>
-
                 <div className={styles.container_element}>
                     <h1 className={"text text_type_main-large mb-4"}>Лента заказов</h1>
                     <div className={styles.orders_container}>
                         {statistic && statistic.orders.map((order, index) => (
-                            <OrderElement order={order} key={index} onClick={() =>handleOpenModal(order)}/>
+                            <OrderElement order={order} key={index} onClick={() => handleOpenModal(order)}/>
                         ))}
                     </div>
                 </div>

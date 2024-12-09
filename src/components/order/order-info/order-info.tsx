@@ -18,7 +18,7 @@ export function OrderInfo({order}: TProps) {
     }
 
     function countIngredientById(id: string) {
-        return ingredients.filter(i => i._id === id).length;
+        return order.ingredients.filter(i => i === id).length;
     }
 
     function getTotalPrice() {
@@ -32,7 +32,7 @@ export function OrderInfo({order}: TProps) {
             <div className={`text text_type_main-default ${order.status === OrderStatusEnum.DONE ? "text_color_success" : ''} mb-15`}>{OrderStatus.getStatusRu(order.status)}</div>
             <div className={"text text_type_main-medium mb-6"}>Состав:</div>
             <div className={styles.order_components}>
-                {order.ingredients.map((id, index) => {
+                {Array.from(new Set(order.ingredients)).map((id, index) => {
                     const ingredient = getIngredientById(id);
                     if (!ingredient) {
                         return null;
