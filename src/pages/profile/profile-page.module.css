@@ -50,7 +50,7 @@
 .orders_container {
     composes: mt-10 from global;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 24px;
     width: 100%;
     overflow-y: auto;

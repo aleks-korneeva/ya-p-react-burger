@@ -1,16 +1,16 @@
-import {TOrder} from "../../utils/types";
+import {TOrders} from "../../utils/types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {WebsocketStatus} from "../../utils/web-socket-status";
 
 export type TUserOrdersState = {
     status: WebsocketStatus
-    orders: TOrder[];
+    orders: TOrders | null;
     connectionError: string | null;
 }
 
 const initialState: TUserOrdersState = {
     status: WebsocketStatus.OFFLINE,
-    orders: [],
+    orders: null,
     connectionError: null
 }
 
@@ -31,7 +31,7 @@ export const userOrdersSlice = createSlice({
         wsError: (state, action: PayloadAction<string>) => {
             state.connectionError = action.payload;
         },
-        wsMessage: (state, action: PayloadAction<TOrder[]>) => {
+        wsMessage: (state, action: PayloadAction<TOrders>) => {
             state.orders = action.payload;
         }
     },

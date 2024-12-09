@@ -182,7 +182,7 @@ const checkSuccess = <T extends TResponse> (response: T): Promise<T> => {
     }
 }
 
-function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
+export function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
     const requestOptions = {
         method: 'POST',
         headers: {
