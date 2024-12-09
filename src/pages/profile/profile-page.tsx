@@ -1,16 +1,14 @@
 import styles from "./profile-page.module.css";
 import {NavLink, Outlet} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../services/actions/logout";
 import {AppRoute} from "../../utils/routes";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
-    //@ts-ignore
     const {logoutRequest} = useSelector(state => state.logout);
     function handleLogout() {
-        //@ts-ignore
         dispatch(logout())
     }
 

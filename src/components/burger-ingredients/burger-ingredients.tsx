@@ -2,16 +2,15 @@ import React, {RefObject, useRef} from "react";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css'
 import {IngredientsGroup} from "./ingredient-group/ingredients-group";
-import {useSelector} from "react-redux";
 import {BUN, MAIN, SAUCE} from '../../utils/ingredient-types';
 import {TIngredient, TIngredientsType} from "../../utils/types";
+import {useSelector} from "../../hooks/hooks";
 
 type TTabRef = {
     [tabKey in TIngredientsType]?: RefObject<HTMLHeadingElement>;
 }
 
 export default function BurgerIngredients(): React.JSX.Element {
-    //@ts-ignore
     const {ingredients, ingredientRequest, ingredientFailed} = useSelector(state => state.ingredients);
 
     const [activeTab, setActiveTab] = React.useState(BUN);

@@ -2,6 +2,7 @@ export const AppRoute = {
     HOME: "/",
     LOGIN: "/login",
     INGREDIENTS: "/ingredients",
+    FEED: "/feed",
     REGISTER: "/register",
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",

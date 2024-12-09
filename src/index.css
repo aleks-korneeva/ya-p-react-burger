@@ -21,3 +21,36 @@ code {
   font-weight: bold;
   text-decoration: none;
 }
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.z-index-3 {
+  z-index: 3;
+}
+
+.z-index-4 {
+  z-index: 4;
+}
+
+.z-index-5 {
+  z-index: 5;
+}
+
+.content_wrapper {
+  display: flex;
+  justify-content: start;
+  gap: 60px;
+  margin: 0 auto;
+  max-width: 1460px;
+}
+
+.text_shadow {
+  text-shadow: var(--colors-interface-accent) 0 0 20px;
+}
+

@@ -3,10 +3,9 @@ import {BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-b
 import styles from './app-header.module.css';
 import {NavLink} from "react-router-dom";
 import {AppRoute} from "../../utils/routes";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../hooks/hooks";
 
 const AppHeader = () => {
-    //@ts-ignore
     const {user} = useSelector(state => state.auth);
     return (
         <header>
@@ -21,7 +20,7 @@ const AppHeader = () => {
                         )}
                     </NavLink>
 
-                    <NavLink to="/orders" className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
+                    <NavLink to={AppRoute.FEED} className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
                         {({isActive}) => (
                             <>
                                 <ListIcon type={isActive ? "primary" : "secondary"} />
@@ -30,7 +29,7 @@ const AppHeader = () => {
                         )}
                     </NavLink>
                 </nav>
-                <Logo/>
+                <Logo className={styles.logo}/>
                 <NavLink to={AppRoute.PROFILE} className={({isActive}) => isActive ? `${styles.menu_item} active-link` : `${styles.menu_item} text_color_inactive`}>
                     {({isActive}) => (
                         <>

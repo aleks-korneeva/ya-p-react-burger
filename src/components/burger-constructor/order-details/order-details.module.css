@@ -6,8 +6,7 @@
 }
 
 .order_number {
-    composes: text text_type_digits-large mb-8 from global;
-    text-shadow: var(--colors-interface-accent) 0 0 20px;
+    composes: text text_type_digits-large mb-8 text_shadow from global;
 }
 
 .order_accepted_image {

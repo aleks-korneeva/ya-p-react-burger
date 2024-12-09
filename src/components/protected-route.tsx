@@ -1,7 +1,7 @@
-import { useSelector} from "react-redux";
 import {Navigate, useLocation} from "react-router-dom";
 import {Preloader} from "./preloader/preloader";
 import {AppRoute} from "../utils/routes";
+import {useSelector} from "../hooks/hooks";
 
 type TProps = {
     element: React.JSX.Element;
@@ -9,9 +9,7 @@ type TProps = {
 }
 
 const ProtectedRoute = ({element, onlyUnAuth = false} : TProps) => {
-    //@ts-ignore
     const { user } = useSelector(state => state.auth);
-    //@ts-ignore
     const isAuthChecked = useSelector(state => state.auth);
     const location = useLocation();
 

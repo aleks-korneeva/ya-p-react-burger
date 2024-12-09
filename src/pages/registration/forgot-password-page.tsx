@@ -1,18 +1,17 @@
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password-page.module.css";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../services/actions/password-reset";
 import React, {ChangeEvent, FormEvent, useEffect} from "react";
 import {AppRoute} from "../../utils/routes";
 import {Preloader} from "../../components/preloader/preloader";
 import {StorageKey} from "../../utils/storage-key";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 export const ForgotPasswordPage = () => {
     const [state, setState] = React.useState({
         email: ''
     });
-    //@ts-ignore
     const {resetPasswordSuccess, resetPasswordRequest} = useSelector(state => state.passwordReset);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,7 +29,6 @@ export const ForgotPasswordPage = () => {
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        //@ts-ignore
         dispatch(resetPassword(state));
     }
 
