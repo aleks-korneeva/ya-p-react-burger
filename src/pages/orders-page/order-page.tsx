@@ -1,6 +1,6 @@
 import {OrderElement} from "../../components/order/order-element/order-element";
 import styles from './order-page.module.css'
-import {OrderStatus} from "../../utils/order-status";
+import {OrderStatusEnum} from "../../utils/order-status";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "../../hooks/hooks";
 import {wsConnect, wsDisconnect} from "../../services/actions/order-statistic";
@@ -40,7 +40,7 @@ export function OrderPage() {
                         <div className={`text text_type_main-medium ${styles.container_element}`}>
                             <div className={"mb-6"}>Готовы:</div>
                             <div className={styles.orders_number_container}>
-                                {getOrdersWithStatus(OrderStatus.DONE.name).map(order => {
+                                {getOrdersWithStatus(OrderStatusEnum.DONE).map(order => {
                                     return <div className={"text text_type_digits-default text_color_success"}
                                                 key={order.number}>{order.number}</div>
                                 })}
@@ -49,7 +49,7 @@ export function OrderPage() {
                         <div className={`text text_type_main-medium ${styles.container_element}`}>
                             <div className={"mb-6"}>В работе:</div>
                             <div className={styles.orders_number_container}>
-                                {getOrdersWithStatus(OrderStatus.IN_PROGRESS.name).map(order => {
+                                {getOrdersWithStatus(OrderStatusEnum.PENDING).map(order => {
                                     return <div className={"text text_type_digits-default"}
                                                 key={order.number}>{order.number}</div>
                                 })}

@@ -6,6 +6,7 @@ import {IngredientImage} from "../ingredient-image/ingredient-image";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {AppRoute} from "../../../utils/routes";
 import {useLocation, useNavigate} from "react-router-dom";
+import {OrderStatus, OrderStatusEnum} from "../../../utils/order-status";
 
 type TProps = {
     order: TOrder;
@@ -38,7 +39,7 @@ export function OrderElement({order, maxIconsCount = 5}: TProps) {
                 <FormattedDate date={new Date(order.createdAt)} className={"text text_type_main-default text_color_inactive"}/>
             </div>
             <div className={"text text_type_main-medium mb-2"}>{order.name}</div>
-            {order.status && <div className={"text text_type_main-default mb-6"}>{order.status}</div>}
+            {order.status && <div className={`text text_type_main-default ${order.status === OrderStatusEnum.DONE ? "text_color_success" : ''} mb-6`}>{OrderStatus.getStatusRu(order.status)}</div>}
             <div className={styles.components_container}>
                 <div className={styles.images_container}>
                     {order.ingredients.map((id, index) => {

@@ -47,7 +47,7 @@ function App() {
                 { state?.backgroundLocation && (
                     <Routes>
                         <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} title={"Детали ингредиента"} onCloseCallback={handleClose} />} />
-                        <Route path={`${AppRoute.FEED}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} />}/>
+                        <Route path={`${AppRoute.FEED}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} titleCss={"text_type_digits-default"}/>}/>
                     </Routes>
                 )}
                 <Routes location={state?.backgroundLocation || location}>

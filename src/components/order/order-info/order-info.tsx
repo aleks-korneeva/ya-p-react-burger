@@ -4,6 +4,7 @@ import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-
 import {IngredientImage} from "../ingredient-image/ingredient-image";
 import {useSelector} from "../../../hooks/hooks";
 import {TOrder} from "../../../utils/types";
+import {OrderStatus, OrderStatusEnum} from "../../../utils/order-status";
 
 type TProps = {
     order: TOrder
@@ -28,7 +29,7 @@ export function OrderInfo({order}: TProps) {
     return (
         <div className={styles.container}>
             <h1 className={"text text_type_main-medium mb-3"}>{order.name}</h1>
-            <div className={"text text_type_main-default text_color_success mb-15"}>{order.status}</div>
+            <div className={`text text_type_main-default ${order.status === OrderStatusEnum.DONE ? "text_color_success" : ''} mb-15`}>{OrderStatus.getStatusRu(order.status)}</div>
             <div className={"text text_type_main-medium mb-6"}>Состав:</div>
             <div className={styles.order_components}>
                 {order.ingredients.map((id, index) => {
