@@ -44,7 +44,7 @@ export const ForgotPasswordPage = () => {
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className={"text text_type_main-medium"}>Восстановление пароля</h1>
                     <EmailInput value={state.email} name={"email"} onChange={handleOnChange}
-                                placeholder={"Укажите e-mail"}></EmailInput>
+                                placeholder={"Укажите e-mail"} autoComplete={"email"}></EmailInput>
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Восстановить</Button>
                 </form>
                 <div className={styles.sign_in_container}>

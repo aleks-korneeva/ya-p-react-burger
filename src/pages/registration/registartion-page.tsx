@@ -39,11 +39,11 @@ export const RegistrationPage = () => {
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className={"text text_type_main-medium"}>Регистрация</h1>
                     <Input value={state.name} onChange={handleOnChange} placeholder={"Имя"} name={"name"}
-                           onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Input>
+                           onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} autoComplete={"username"}></Input>
                     <EmailInput value={state.email} onChange={handleOnChange} placeholder={"E-mail"}
-                                name={"email"}></EmailInput>
+                                name={"email"} autoComplete={"email"}></EmailInput>
                     <PasswordInput value={state.password} onChange={handleOnChange} placeholder={"Пароль"}
-                                   name={"password"}></PasswordInput>
+                                   name={"password"} autoComplete={"current-password"}></PasswordInput>
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Зарегистрироваться</Button>
                 </form>
                 <div className={styles.sign_in_container}>

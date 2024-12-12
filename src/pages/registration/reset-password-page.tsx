@@ -56,10 +56,10 @@ export const ResetPasswordPage = () => {
                         <form onSubmit={handleSubmit} className={styles.content}>
                             <h1 className={"text text_type_main-medium"}>Восстановление пароля</h1>
                             <PasswordInput value={state.password} onChange={handleOnChange}
-                                           placeholder={"Введите новый пароль"} name={"password"}></PasswordInput>
+                                           placeholder={"Введите новый пароль"} name={"password"} autoComplete={"new-password"}></PasswordInput>
                             <Input value={state.token} onChange={handleOnChange}
                                    placeholder={"Введите код из письма"} name={"token"}
-                                   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Input>
+                                   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} autoComplete={"one-time-code"}></Input>
                             <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
                         </form>
                         <div className={styles.sign_in_container}>

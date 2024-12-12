@@ -38,9 +38,9 @@ export const LoginPage = () => {
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className={"text text_type_main-medium"}>Вход</h1>
                     <EmailInput value={state.email} onChange={handleOnChange} placeholder={"E-mail"}
-                                name={"email"}></EmailInput>
+                                name={"email"} autoComplete={"email"}></EmailInput>
                     <PasswordInput value={state.password} onChange={handleOnChange} placeholder={"Пароль"}
-                                   name={"password"}></PasswordInput>
+                                   name={"password"} autoComplete={"current-password"}></PasswordInput>
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Войти</Button>
                 </form>
                 <div className={styles.sign_in_container}>
