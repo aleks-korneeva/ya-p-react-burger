@@ -2,10 +2,10 @@ import {Button, EmailInput, PasswordInput} from "@ya.praktikum/react-developer-b
 import styles from "../registration/reset-password-page.module.css";
 import {Link} from "react-router-dom";
 import {ChangeEvent, FormEvent, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../services/actions/login";
 import {AppRoute} from "../../utils/routes";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 export const LoginPage = () => {
     const [state, setState] = useState({
@@ -14,7 +14,6 @@ export const LoginPage = () => {
     })
 
     const dispatch = useDispatch();
-    //@ts-ignore
     const {loginRequest} = useSelector(state => state.login)
 
     function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
@@ -30,7 +29,6 @@ export const LoginPage = () => {
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        //@ts-ignore
         dispatch(login(state));
     }
 
@@ -40,9 +38,9 @@ export const LoginPage = () => {
                 <form onSubmit={handleSubmit} className={styles.content}>
                     <h1 className={"text text_type_main-medium"}>Вход</h1>
                     <EmailInput value={state.email} onChange={handleOnChange} placeholder={"E-mail"}
-                                name={"email"}></EmailInput>
+                                name={"email"} autoComplete={"email"}></EmailInput>
                     <PasswordInput value={state.password} onChange={handleOnChange} placeholder={"Пароль"}
-                                   name={"password"}></PasswordInput>
+                                   name={"password"} autoComplete={"current-password"}></PasswordInput>
                     <Button htmlType={"submit"} type={"primary"} size={"medium"}>Войти</Button>
                 </form>
                 <div className={styles.sign_in_container}>

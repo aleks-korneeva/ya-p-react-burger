@@ -1,6 +1,5 @@
 import styles from './ingredient-item.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import React from "react";
 import {BUN} from "../../../utils/ingredient-types";
 import {useDrag} from "react-dnd";
@@ -9,13 +8,13 @@ import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 import {useLocation, useNavigate} from "react-router-dom";
 import {AppRoute} from "../../../utils/routes";
 import {TIngredient} from "../../../utils/types";
+import {useDispatch, useSelector} from "../../../hooks/hooks";
 
 type TProps = {
     ingredient: TIngredient
 }
 
 export const IngredientItem = ({ingredient} : TProps) => {
-    //@ts-ignore
     const {bun, ingredients} = useSelector(state => state.burgerConstructor);
 
     const count = React.useMemo(() =>  {

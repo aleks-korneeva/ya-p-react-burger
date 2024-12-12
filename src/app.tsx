@@ -18,14 +18,16 @@ import {IngredientDetails} from "./components/burger-ingredients/ingredient-deta
 import {NotFoundPage} from "./pages/not-found-page/not-found-page";
 import {checkUserAuth} from "./services/actions/auth";
 import {AppRoute} from "./utils/routes";
+import {OrderInfoPage} from "./pages/order-info-page/order-info-page";
+import {OrderPage} from "./pages/orders-page/order-page";
+import {OrderInfo} from "./components/order/order-info/order-info";
+import {AppDispatch} from "./services/types";
 
 function App() {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getIngredients());
-        // @ts-ignore
         dispatch(checkUserAuth())
     }, [dispatch])
 
@@ -34,7 +36,7 @@ function App() {
     const navigate = useNavigate();
 
     function handleClose(e?: Event) {
-        navigate(AppRoute.HOME);
+        navigate(state?.backgroundLocation);
         e?.stopPropagation();
     }
 
@@ -44,12 +46,17 @@ function App() {
             <main>
                 { state?.backgroundLocation && (
                     <Routes>
-                        <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} onCloseCallback={handleClose} />} />
+                        <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<Modal children={<IngredientDetails ingredient={state.item}/>} title={"Детали ингредиента"} onCloseCallback={handleClose} />} />
+                        <Route path={`${AppRoute.FEED}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} titleCss={"text_type_digits-default"}/>}/>
+                        <Route path={`${AppRoute.PROFILE}/${AppRoute.ORDERS}/:number`} element={<Modal children={<OrderInfo order={state.item}/>} title={`#${state.item.number}`} onCloseCallback={handleClose} titleCss={"text_type_digits-default"}/>}/>
                     </Routes>
                 )}
                 <Routes location={state?.backgroundLocation || location}>
                     <Route path={AppRoute.HOME} element={<HomePage/>}/>
                     <Route path={`${AppRoute.INGREDIENTS}/:id`} element={<IngredientPage/>}/>
+                    <Route path={`${AppRoute.FEED}/:number`} element={<OrderInfoPage/>}/>
+                    <Route path={`${AppRoute.FEED}`} element={<OrderPage/>}/>
+                    <Route path={`${AppRoute.PROFILE}/${AppRoute.ORDERS}/:number`} element={<OnlyAuthRoute element={<OrderInfoPage/>}/>}/>
                     <Route path={AppRoute.LOGIN} element={<OnlyUnAuthRoute element={<LoginPage/>}/>}/>
                     <Route path={AppRoute.REGISTER} element={<OnlyUnAuthRoute element={<RegistrationPage/>}/>}/>
                     <Route path={AppRoute.FORGOT_PASSWORD} element={<OnlyUnAuthRoute element={<ForgotPasswordPage/>}/>}/>

@@ -1,6 +1,9 @@
 import {StorageKey} from "./storage-key";
-import {TAuthResponse, TResponse, TResponseWithMessage, TUser, TUserWithPassword} from "./types";
+import {TAuthResponse, TOrder, TResponse, TResponseWithMessage, TUser, TUserWithPassword} from "./types";
 
+const wsBaseUrl = "wss://norma.nomoreparties.space";
+export const wsAllOrdersEndpoint = `${wsBaseUrl}/orders/all`;
+export const wsUserOrdersEndpoint = `${wsBaseUrl}/orders`;
 const baseUrl = 'https://norma.nomoreparties.space/api/';
 const apiEndpointToken = 'auth/token';
 const apiEndpointRegister = 'auth/register';
@@ -9,6 +12,7 @@ const apiEndpointLogout = 'auth/logout';
 const apiEndpointUser = 'auth/user';
 const apiEndpointResetPassword = 'password-reset';
 const apiEndpointSetPassword = 'password-reset/reset';
+const apiEndpointGetOrder = 'orders';
 
 export function requestWithRefreshToken<T extends TResponse>(endpoint: string, options: RequestInit): Promise<T> {
     return request<T>(endpoint, options).catch(error => {
@@ -56,7 +60,7 @@ export const getUser = (): Promise<Pick<TAuthResponse, "success" | "user">> => {
         })
 }
 
-export const login = (formData: TUserWithPassword) => {
+export const login = (formData: { email: string, password: string }) => {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -178,7 +182,7 @@ const checkSuccess = <T extends TResponse> (response: T): Promise<T> => {
     }
 }
 
-function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
+export function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -201,6 +205,14 @@ function refreshToken(): Promise<Omit<TAuthResponse, "user">> {
         })
 }
 
+export function getOrder(number: number) {
+    const requestOptions = {
+        method: 'GET',
+    }
+
+    return request<{orders: TOrder[]} & TResponse>(`${apiEndpointGetOrder}/${number}`, requestOptions);
+}
+
 export const api = {
-    getUser, login, logout, updateUser, register, resetPassword, setPassword
+    getUser, login, logout, updateUser, register, resetPassword, setPassword, getOrder
 }

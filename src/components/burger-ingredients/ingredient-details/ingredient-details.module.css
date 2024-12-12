@@ -16,7 +16,6 @@
 }
 
 .nutrients {
-    composes: mb-15 from global;
     display: flex;
     flex-direction: row;
     align-items: stretch;

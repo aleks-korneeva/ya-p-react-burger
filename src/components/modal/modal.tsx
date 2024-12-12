@@ -7,12 +7,13 @@ import styles from './modal.module.css'
 type TProps = {
     title?: string;
     children: React.JSX.Element;
-    onCloseCallback: (e?: Event) => void
+    onCloseCallback: (e?: Event) => void;
+    titleCss?: string;
 }
 
 const modalRoot = document.getElementById("modal-element") as HTMLElement;
 
-export default function Modal ({title, children, onCloseCallback}: TProps){
+export default function Modal ({title, children, onCloseCallback, titleCss}: TProps){
     React.useEffect(() => {
             document.addEventListener("keydown", handleEscapeKeyDown);
             return () => {
@@ -31,7 +32,7 @@ export default function Modal ({title, children, onCloseCallback}: TProps){
         <div className={styles.container}>
             <div className={styles.dialog}>
                 <div className={styles.header}>
-                    <h1 className={"text text_type_main-large"}>{title}</h1>
+                    <h1 className={`text text_type_main-large ${titleCss}`}>{title}</h1>
                     <CloseIcon type="primary" onClick={onCloseCallback} className={styles.close_icon} />
                 </div>
                 <div className={styles.content}>

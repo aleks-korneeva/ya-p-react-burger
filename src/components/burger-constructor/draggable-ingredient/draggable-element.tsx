@@ -1,12 +1,12 @@
 import React, {useRef} from 'react';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './draggable-element.module.css';
-import {useDispatch} from "react-redux";
 import {DELETE_INGREDIENT} from "../../../services/actions/constructor-ingredients";
 import {useDrag, useDrop} from "react-dnd";
 import {DraggableItemTypes} from "../../../utils/draggable-item-types";
 import {TIngredientWithKey} from "../../../utils/types";
 import type {Identifier} from "dnd-core";
+import {useDispatch} from "../../../hooks/hooks";
 
 type TProps = {
     index: number;

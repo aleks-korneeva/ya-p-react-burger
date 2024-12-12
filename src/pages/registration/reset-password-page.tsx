@@ -1,12 +1,12 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./reset-password-page.module.css";
-import {useDispatch, useSelector} from "react-redux";
 import {setPassword} from "../../services/actions/set-password";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import {AppRoute} from "../../utils/routes";
 import {StorageKey} from "../../utils/storage-key";
 import {Preloader} from "../../components/preloader/preloader";
+import {useDispatch, useSelector} from "../../hooks/hooks";
 
 export const ResetPasswordPage = () => {
     const [state, setState] = useState({
@@ -15,7 +15,6 @@ export const ResetPasswordPage = () => {
     })
 
     const dispatch = useDispatch();
-    //@ts-ignore
     const {setPasswordRequest, setPasswordSuccess} = useSelector(state => state.setPassword)
 
     function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
@@ -31,7 +30,6 @@ export const ResetPasswordPage = () => {
 
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        //@ts-ignore
         dispatch(setPassword(state));
     }
 
@@ -58,10 +56,10 @@ export const ResetPasswordPage = () => {
                         <form onSubmit={handleSubmit} className={styles.content}>
                             <h1 className={"text text_type_main-medium"}>Восстановление пароля</h1>
                             <PasswordInput value={state.password} onChange={handleOnChange}
-                                           placeholder={"Введите новый пароль"} name={"password"}></PasswordInput>
+                                           placeholder={"Введите новый пароль"} name={"password"} autoComplete={"new-password"}></PasswordInput>
                             <Input value={state.token} onChange={handleOnChange}
                                    placeholder={"Введите код из письма"} name={"token"}
-                                   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Input>
+                                   onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} autoComplete={"one-time-code"}></Input>
                             <Button htmlType={"submit"} type={"primary"} size={"medium"}>Сохранить</Button>
                         </form>
                         <div className={styles.sign_in_container}>

@@ -1,0 +1,30 @@
+.ingredient_image_container {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(var(--background-alt), var(--background-alt)) padding-box,
+    linear-gradient(45deg, purple, #3873fd) border-box;
+    border: 3px solid transparent;
+    position: relative;
+}
+
+.ingredient_image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.overlay {
+    composes: text text_type_main-medium from global;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
