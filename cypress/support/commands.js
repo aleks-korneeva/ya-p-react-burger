@@ -35,3 +35,13 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('dragAndDrop', (elementSelector, targetSelector) => {
+    cy.get(elementSelector).trigger('dragstart');
+    cy.get(targetSelector).trigger('drop');
+})
+
+Cypress.Commands.add('openIngredientDetails', (ingredientSelector) => {
+    cy.get(ingredientSelector).trigger('click');
+    cy.get('[data-testid=modal-dialog').should('exist');
+})
