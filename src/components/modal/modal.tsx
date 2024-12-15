@@ -30,9 +30,9 @@ export default function Modal ({title, children, onCloseCallback, titleCss}: TPr
 
     return ReactDOM.createPortal((
         <div className={styles.container}>
-            <div className={styles.dialog}>
-                <div className={styles.header}>
-                    <h1 className={`text text_type_main-large ${titleCss}`}>{title}</h1>
+            <div className={styles.dialog} data-testid={"modal-dialog"}>
+                <div className={styles.header} data-testid={"modal-header"}>
+                    <h1 className={`text text_type_main-large ${titleCss}`} data-testid={"modal-header-text"}>{title}</h1>
                     <CloseIcon type="primary" onClick={onCloseCallback} className={styles.close_icon} />
                 </div>
                 <div className={styles.content}>

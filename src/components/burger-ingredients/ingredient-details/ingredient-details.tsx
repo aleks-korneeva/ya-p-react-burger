@@ -10,7 +10,7 @@ export function IngredientDetails({ingredient}: TProps) {
     return (
         <div className={styles.container}>
             <img src={ingredient.image_large} alt={ingredient.name}/>
-            <h1 className={"text text_type_main-medium mb-8"}>{ingredient.name}</h1>
+            <h1 className={"text text_type_main-medium mb-8"} data-testid={"ingredient-details-name"}>{ingredient.name}</h1>
             <div className={styles.nutrients}>
                 <div className={styles.nutrient}>
                     <div>Калории, ккал</div>

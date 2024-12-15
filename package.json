@@ -50,5 +50,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^13.16.1",
+    "eslint": "^9.17.0",
+    "eslint-plugin-cypress": "^4.1.0"
   }
 }
