@@ -12,7 +12,7 @@ export type TConstructorIngredientsState = {
     ingredients: TIngredientWithKey[];
 }
 
-const initialState: TConstructorIngredientsState = {
+export const initialState: TConstructorIngredientsState = {
     bun: null,
     ingredients: []
 }

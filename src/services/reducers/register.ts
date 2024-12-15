@@ -7,7 +7,7 @@ export type TRegisterState = {
     error: any,
 }
 
-const initialState: TRegisterState = {
+export const initialState: TRegisterState = {
     registerRequest: false,
     registerSuccess: false,
     registerFailed: false,
@@ -17,10 +17,10 @@ const initialState: TRegisterState = {
 export const registerReducer = (state: TRegisterState = initialState, action: TRegisterAction) => {
     switch (action.type) {
         case REGISTER_REQUEST: {
-            return {...state, registerRequest: true, registerSuccess: false, registerFailed: false };
+            return {...state, registerRequest: true, registerSuccess: false, registerFailed: false, error: null };
         }
         case REGISTER_SUCCESS: {
-            return {...state, registerRequest: false, registerSuccess: true, registerFailed: false };
+            return {...state, registerRequest: false, registerSuccess: true, registerFailed: false, error: null };
         }
         case REGISTER_FAILED: {
             return {...state, registerRequest: false, registerSuccess: false, registerFailed: true, error: action.payload };

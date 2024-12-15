@@ -8,7 +8,7 @@ export type TOrdersStatisticStore = {
     connectionError: string | null;
 }
 
-const initialState: TOrdersStatisticStore = {
+export const initialState: TOrdersStatisticStore = {
     status: WebsocketStatus.OFFLINE,
     statistic: null,
     connectionError: null
@@ -26,7 +26,6 @@ export const orderStatisticSlice = createSlice({
         },
         wsClose: (state) => {
             state.status = WebsocketStatus.OFFLINE;
-
         },
         wsError: (state, action: PayloadAction<string>) => {
             state.connectionError = action.payload;

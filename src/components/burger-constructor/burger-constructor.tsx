@@ -94,7 +94,7 @@ export const BurgerConstructor = () => {
                 )
                 }
 
-                <div className={styles.scrolled_elements_container} ref={drop}>
+                <div className={styles.scrolled_elements_container} ref={drop} data-testid={"ingredient-element"}>
                     {ingredients && ingredients.length > 0 ?
                         ingredients.map((item: TIngredientWithKey, index: number) => (
                             <DraggableElement item={item} index={index} moveIngredient={moveIngredient} key={item.key}/>
@@ -107,7 +107,7 @@ export const BurgerConstructor = () => {
                 </div>
 
                 {bun ? (
-                    <div className={"ml-4"}>
+                    <div className={"ml-4"} data-testid={`bun-element-${bun.name}`}>
                         <ConstructorElement text={bun.name + ' (низ)'}
                                             thumbnail={bun.image}
                                             price={bun.price}
@@ -117,7 +117,7 @@ export const BurgerConstructor = () => {
                     </div>
                 ) : (
                     <div
-                        className={`${styles.bottom_bun} ${isOverBun ? styles.onHover : canDropBun ? styles.onDrop : ''}`}>
+                        className={`${styles.bottom_bun} ${isOverBun ? styles.onHover : canDropBun ? styles.onDrop : ''}`} data-testid={"bun-element"}>
                         <span>Выберите булку</span>
                     </div>
                 )
