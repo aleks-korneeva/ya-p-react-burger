@@ -54,7 +54,7 @@ export const IngredientItem = ({ingredient} : TProps) => {
     const opacity = isDragging ? 0.5 : 1
 
     return (
-        <div className={`${styles.ingredient_container} mb-8`} onClick={handleOpenModal} ref={drag} style={{opacity: opacity }}>
+        <div className={`${styles.ingredient_container} mb-8`} onClick={handleOpenModal} ref={drag} style={{opacity: opacity }} data-testid={`ingredient-${ingredient.name}`}>
             {count !== 0  &&
                 <Counter count={count}/>
             }

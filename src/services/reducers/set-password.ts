@@ -12,7 +12,7 @@ export type TSetPasswordState = {
     error: any
 }
 
-const initialState: TSetPasswordState = {
+export const initialState: TSetPasswordState = {
     setPasswordRequest: false,
     setPasswordSuccess: false,
     setPasswordFailed: false,

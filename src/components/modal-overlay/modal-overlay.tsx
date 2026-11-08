@@ -6,6 +6,6 @@ type TProps = {
 
 export default function ModalOverlay ({onClick}: TProps) {
     return (
-        <div className={styles.overlay} onClick={onClick}></div>
+        <div className={styles.overlay} onClick={onClick} data-testid={"modal-overlay"}></div>
     )
 }

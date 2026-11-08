@@ -7,7 +7,7 @@ export type TLoginState = {
     error: any;
 }
 
-const initialState: TLoginState = {
+export const initialState: TLoginState = {
     loginRequest: false,
     loginSuccess: false,
     loginFailed: false,

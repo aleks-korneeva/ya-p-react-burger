@@ -87,7 +87,7 @@ export const DraggableElement = ({index, item, moveIngredient}: TProps): React.J
     drag(drop(ref))
 
     return (
-        <div className={`${styles.element} ${isDragging ? styles.onDrag : ''} ml-4`} key={item.key} ref={ref} data-handler-id={handlerId}>
+        <div className={`${styles.element} ${isDragging ? styles.onDrag : ''} ml-4`} key={item.key} ref={ref} data-handler-id={handlerId} data-testid={`selected-ingredient-${item.name}`}>
             <DragIcon type="primary"/>
             <ConstructorElement text={item.name}
                                 thumbnail={item.image}

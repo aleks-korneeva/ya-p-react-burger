@@ -13,7 +13,7 @@ export type TOrderState = {
     isOpen: boolean
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
     orderNumber: null,
     createOrderRequest: false,
     createOrderFailed: false,

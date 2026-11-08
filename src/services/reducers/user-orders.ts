@@ -8,7 +8,7 @@ export type TUserOrdersState = {
     connectionError: string | null;
 }
 
-const initialState: TUserOrdersState = {
+export const initialState: TUserOrdersState = {
     status: WebsocketStatus.OFFLINE,
     orders: null,
     connectionError: null
@@ -18,7 +18,7 @@ export const userOrdersSlice = createSlice({
     name: "userOrders",
     initialState,
     reducers: {
-        Connecting: (state) => {
+        wsConnecting: (state) => {
             state.status = WebsocketStatus.CONNECTING;
         },
         wsOpen: (state) => {
@@ -26,7 +26,6 @@ export const userOrdersSlice = createSlice({
         },
         wsClose: (state) => {
             state.status = WebsocketStatus.OFFLINE;
-
         },
         wsError: (state, action: PayloadAction<string>) => {
             state.connectionError = action.payload;
@@ -42,7 +41,7 @@ export const userOrdersSlice = createSlice({
     }
 })
 
-export const {Connecting, wsOpen, wsClose, wsError, wsMessage} = userOrdersSlice.actions;
+export const {wsConnecting, wsOpen, wsClose, wsError, wsMessage} = userOrdersSlice.actions;
 
 export type TActionCreators = typeof userOrdersSlice.actions;
 export type TUserOrdersActions = ReturnType<TActionCreators[keyof TActionCreators]>

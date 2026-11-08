@@ -7,7 +7,7 @@ export type TUpdateUserState = {
     error: any,
 }
 
-const initialState: TUpdateUserState = {
+export const initialState: TUpdateUserState = {
     updateUserRequest: false,
     updateUserSuccess: false,
     updateUserFailed: false,
